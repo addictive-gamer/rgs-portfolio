@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.9`  
+> **Versión del archivo:** `rabgamesstudio_v4.11`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -143,6 +143,29 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.7** | 21 mar 2026 | Widget GameJolt reconstruido correctamente, logo GitHub, OG meta tags, compatibilidad móvil |
 | **v4.8** | 21 mar 2026 | Open Graph + Twitter Card completos para preview en redes sociales (Discord, WhatsApp, Twitter/X, Facebook), versión `v4.8` en footer, compatibilidad móvil verificada |
 | **v4.9** | 21 mar 2026 | Versión centralizada en constante JS `VERSION` — cambia un número y el footer se actualiza automáticamente. El footer siempre mostrará la versión correcta en todas las entregas futuras |
+| **v4.10** | 21 mar 2026 | Optimización móvil completa — 5 issues detectados y corregidos: hero buttons apilados, donation buttons apilados, footer centrado, team grid a 1 columna en 480px, status-bar en columna en 480px |
+| **v4.11** | 21 mar 2026 | Sección de Estudios Aliados añadida (Rewite Pictures, ZAYgt, Nightmare Labs, Reptile Games), bilingüe ES/EN, enlace en nav y footer, grid 4→2→2 cols según pantalla. Bug crítico corregido: CSS del sitio destruido por reemplazo fallido — reconstruido desde base v4.10 |
+
+### 🔧 Parcheos detallados v4.11
+
+| # | Mejora | Detalle |
+|---|---|---|
+| 1 | Sección `#allied-studios` | Nueva sección entre Team y News con 4 estudios aliados — Rewite Pictures, ZAYgt, Nightmare Labs, Reptile Games |
+| 2 | Cards de aliados | Avatar circular, nombre, handle @GameJolt, link directo — click abre exit popup |
+| 3 | Responsive | 4 columnas en desktop, 2 columnas en 768px y 480px |
+| 4 | Bilingüe | `nav_allied`, `lbl_allied`, `sec_allied`, `allied_desc` en ES y EN |
+| 5 | Nav y footer | Link "Aliados / Allies" añadido en menú principal y footer |
+| 6 | Móvil verificado | 480px completo: team grid 1col, status bar apilada, modals responsive, container padding, section padding reducido |
+
+### 🔧 Parcheos detallados v4.10
+
+| # | Issue | Fix |
+|---|---|---|
+| 1 | Hero buttons no apilaban en móvil | `flex-direction:column;align-items:stretch` en 768px — todos los botones al 100% de ancho |
+| 2 | Botones PayPal/Ko-fi no apilaban | `flex-direction:column` en `.support-btns` en 768px |
+| 3 | Footer no centraba en móvil | `text-align:center` y `flex-wrap:wrap;justify-content:center` en 768px |
+| 4 | Team grid 2 columnas muy apretado en 480px | `.team-grid{grid-template-columns:1fr}` en 480px |
+| 5 | Status bar demasiado ancha en 480px | `flex-direction:column;gap:6px` — ítems apilados verticalmente |
 
 ### 🔧 Parcheos detallados v4.9
 
@@ -733,7 +756,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.9 pesa **522 KB** — versión centralizada en JS, footer auto-actualizable en todas las entregas futuras.
+- La v4.11 pesa **527 KB** con CSS completo de 36,989 chars — sección de aliados funcionando, móvil optimizado.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
