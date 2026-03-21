@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v3.html`  
+> **Versión del archivo:** `rabgamesstudio_v3.2`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -58,7 +58,7 @@
 | **Rab** | Fundador & CEO / Director | Visión creativa, narrativa, desarrollo. 15 años. |
 | **Skellent** | Programador | Desarrollo técnico de los proyectos |
 | **LouArtStuff** | Diseñadora Gráfica | Identidad visual y arte del estudio |
-| **Silly** | Actor de Doblaje (VA) | Interpreta de manera auditiva dentro de los proyectos |
+| **Silly** | Voice Actor (VA) | Actor de doblaje — interpreta personajes en los proyectos |
 | **Xata Jr** (a.k.a. Addictive Gamer) | Ilustrador & Sprite Artist + Admin Web | Administrador del repositorio y sitio web. Portfolio: [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio) |
 | **JBS_GAMES™** | Colaborador & Aliado externo | Desarrollo de The Run y VaultPlanet |
 
@@ -125,10 +125,24 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 
 | Versión | Fecha | Cambios principales |
 |---|---|---|
-| **v1** | 20 mar 2026 | Primera versión — estructura completa, CRT, slider, secciones base |
-| **v2** | 20 mar 2026 | Imágenes reales integradas (base64 + CDN), links activos, logos de estudio, sección de redes sociales, modal de juegos con galería |
-| **v3** | 21 mar 2026 | Popup de idioma (ES/EN) al entrar, traducción completa de 178 elementos, favicon, SVGs en lugar de emojis, sección de Equipo, políticas legales completas en modal, formulario conectado a Google Sheets, link al repo y portafolio en footer |
-| **v3.1** | 21 mar 2026 | Equipo completo con fotos reales (Rab, Skellent, LouArtStuff, Silly, JBS_GAMES™, Xata Jr), cursor personalizado con inercia y efecto hover/click, Xata Jr documentado como Ilustrador & Sprite Artist + Admin Web |
+| **v1** | 2025 | Primera versión — estructura completa, CRT, slider, secciones base, emojis como iconos |
+| **v2** | 2025 | Imágenes reales integradas (base64 + CDN GameJolt), links activos, logos del estudio, sección de redes sociales con embeds, modal de juegos con galería de 3 fotos |
+| **v3** | 21 mar 2026 | Popup de idioma ES/EN al entrar, sistema bilingüe completo (178 elementos), favicon, SVGs inline en lugar de emojis, sección de Equipo, políticas legales en modal (privacidad, términos, accesibilidad, envíos, reembolso), formulario listo para Google Sheets, links al repo y portafolio en footer |
+| **v3.1** | 21 mar 2026 | Equipo completo con fotos reales desde Wix CDN (Rab, Skellent, LouArtStuff, Silly, JBS_GAMES™), cursor personalizado con inercia (lerp), Google Sheets conectado con URL real, Xata Jr añadido como Ilustrador & Sprite Artist + Admin Web con foto de Instagram |
+| **v3.2** | 21 mar 2026 | Cursor reemplazado por crosshair SVG, bug de traducción corregido (silly_role duplicado en EN), Silly actualizado a Voice Actor (VA), todos los miembros del equipo con `data-i18n` correcto (LouArtStuff, Skellent, Silly, Xata Jr ya traducen en ambas direcciones sin bug), créditos en pie de página (GitHub Pages + Repositorio + Claude) |
+
+### 🔧 Parcheos detallados v3.2
+
+| # | Bug / Mejora | Causa | Solución |
+|---|---|---|---|
+| 1 | Cursor dejó de funcionar | Edición manual de Silly rompió la sintaxis JS — `silly_role:'silly_role:...'` duplicado | Corregida la clave malformada en el objeto EN |
+| 2 | Cursor reemplazado por crosshair | Solicitud de cambio estético | SVG crosshair con círculo central, inercia lerp, hover morado, CRT verde |
+| 3 | Silly no se traducía al inglés | Clave `silly_role` malescrita en el bloque EN | Reescrita correctamente como `'VOICE ACTOR (VA)'` en ambos idiomas |
+| 4 | Miembros del equipo se quedaban en inglés al volver a español | LouArtStuff, Skellent, Silly y Xata Jr no tenían atributo `data-i18n` en su HTML | Añadido `data-i18n` a todos los elementos de rol y descripción de los 4 miembros |
+| 5 | Silly tenía rol genérico "TBD" | Rol no definido al momento de construcción | Actualizado a **Voice Actor (VA)** en ES y EN |
+| 6 | SVG placeholder en tarjeta Xata Jr | Foto no estaba integrada al momento del build | Reemplazado el SVG por `<img>` con foto real de Instagram |
+| 7 | SVG residual flotando junto a la foto de Xata Jr | Al pegar el `<img>` no se borró el SVG anterior | Eliminado el bloque SVG huérfano |
+| 8 | Pie de página sin créditos | No existían | Añadida barra de créditos: GitHub Pages, link al repositorio, Claude (Anthropic) |
 
 ---
 
@@ -536,7 +550,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 | Elemento | Crédito |
 |---|---|
-| Diseño y desarrollo web | Claude (Anthropic) — Generado para RabGamesStudio™ |
+| Diseño y desarrollo web | Claude (Anthropic) — [claude.ai](https://claude.ai) |
 | Arte de juegos | RabGamesStudio™ |
 | Arte de colaboraciones | RabGamesStudio™ × JBS_GAMES™ |
 | Ilustración & Sprites | Xata Jr (Addictive Gamer) |
@@ -546,7 +560,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 | Imágenes CDN | GameJolt CDN · Wix CDN |
 | Iconos | SVGs inline personalizados (sin dependencias externas) |
 | Formulario | Google Apps Script → Google Sheets |
-| Hosting sugerido | GitHub Pages / Netlify |
+| Hosting | [GitHub Pages](https://pages.github.com) — gratuito y confiable |
 | Repositorio | [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio) |
 | Portafolio en vivo | [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/) |
 | Admin del repo & web | Xata Jr — [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio) |
