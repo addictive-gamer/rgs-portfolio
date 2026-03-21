@@ -462,18 +462,20 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
 /* ── CUSTOM CURSOR CROSSHAIR ── */
 *, *::before, *::after { cursor: none !important; }
 #cursor-outer {
-  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999;
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 2000;
   width: 28px; height: 28px; margin: -14px 0 0 -14px;
   transition: transform 0.1s ease, opacity 0.2s;
 }
 #cursor-inner {
-  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999;
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 2000;
   width: 4px; height: 4px; margin: -2px 0 0 -2px;
   background: var(--pink); border-radius: 50%;
   box-shadow: 0 0 6px var(--pink);
   transition: transform 0.06s ease;
 }
 body.cursor-hover #cursor-outer { transform: scale(1.5); }
+#exit-popup.show ~ * #cursor-outer,
+#exit-popup.show ~ #cursor-outer { opacity: 0 !important; }
 body.cursor-click #cursor-outer { transform: scale(0.8); }
 body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 6px var(--green); }
 </style>
@@ -1698,7 +1700,14 @@ function showNotif(msg) {
 }
 
 // ── LINK ──
-function openLink(url) { window.open(url,'_blank'); }
+function openLink(url) {
+  exitTarget = url;
+  const t = T[lang];
+  document.getElementById('exit-title').textContent = t.exit_title || 'SALIENDO DE RABGAMESSTUDIO™';
+  document.getElementById('exit-url').textContent = url;
+  document.getElementById('exit-yes').textContent = (t.exit_yes || 'SÍ, IR') + ' ↗';
+  document.getElementById('exit-popup').classList.add('show');
+}
 
 // ── GAME MODAL ──
 function openModal(id) {
