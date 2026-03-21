@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v3.2`  
+> **Versión del archivo:** `rabgamesstudio_v3.3`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -130,6 +130,16 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v3** | 21 mar 2026 | Popup de idioma ES/EN al entrar, sistema bilingüe completo (178 elementos), favicon, SVGs inline en lugar de emojis, sección de Equipo, políticas legales en modal (privacidad, términos, accesibilidad, envíos, reembolso), formulario listo para Google Sheets, links al repo y portafolio en footer |
 | **v3.1** | 21 mar 2026 | Equipo completo con fotos reales desde Wix CDN (Rab, Skellent, LouArtStuff, Silly, JBS_GAMES™), cursor personalizado con inercia (lerp), Google Sheets conectado con URL real, Xata Jr añadido como Ilustrador & Sprite Artist + Admin Web con foto de Instagram |
 | **v3.2** | 21 mar 2026 | Cursor reemplazado por crosshair SVG, bug de traducción corregido (silly_role duplicado en EN), Silly actualizado a Voice Actor (VA), todos los miembros del equipo con `data-i18n` correcto (LouArtStuff, Skellent, Silly, Xata Jr ya traducen en ambas direcciones sin bug), créditos en pie de página (GitHub Pages + Repositorio + Claude) |
+| **v3.3** | 21 mar 2026 | Google Sheets reemplazado por Formspree (más confiable, mensajes llegan directo al correo), claves ES faltantes añadidas (`skel_role`, `lou_role`, `silly_role`, `xata_role` y sus `_desc`), foto de Xata Jr restaurada con borde morado, Silly corregido a Voice Actor (VA) en ES |
+
+### 🔧 Parcheos detallados v3.3
+
+| # | Bug / Mejora | Causa | Solución |
+|---|---|---|---|
+| 1 | Formulario no enviaba datos | `USER_ACCESSING` en Apps Script + `mode:'no-cors'` silenciaba errores | Migrado a Formspree — mensajes llegan a rabbitgames0103@gmail.com |
+| 2 | Claves ES faltantes en 4 miembros | `skel_role`, `lou_role`, `silly_role`, `xata_role` nunca se añadieron al bloque ES del objeto T | Añadidas las 8 claves faltantes después de `jbs_desc` en ES |
+| 3 | Foto de Xata Jr perdida | Se restauró el SVG placeholder en lugar de la `<img>` real | Restaurada la foto de Instagram con borde y rol morado |
+| 4 | Silly mostraba "ROL POR CONFIRMAR" en ES | Texto hardcodeado en HTML sin clave ES en el objeto T | Corregido texto HTML + añadida clave ES |
 
 ### 🔧 Parcheos detallados v3.2
 
@@ -485,7 +495,7 @@ Estas son las partes marcadas como `PRÓXIMAMENTE` o con placeholders en la v3 a
 | Foto de Xata Jr | Tarjeta equipo en `#team` | SVG placeholder — reemplazar por imagen real cuando esté disponible |
 | Sección de Merch | No implementada | Crear cuando el merch esté listo |
 | Página de Zero-State: LYXA | Tarjeta en `#games-full` | Agregar link cuando exista en GameJolt |
-| ~~Google Sheets~~ | ~~`SHEET_URL`~~ | ✅ **Conectado** — URL real en el HTML |
+| ~~Google Sheets~~ | ~~`SHEET_URL`~~ | ✅ **Migrado a Formspree** — mensajes llegan a rabbitgames0103@gmail.com |
 
 ### 📊 Cómo conectar el formulario a Google Sheets
 
@@ -569,7 +579,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v3.1 pesa aproximadamente **499 KB** gracias a las imágenes base64 embebidas.
+- La v3.3 pesa aproximadamente **502 KB** gracias a las imágenes base64 embebidas.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
