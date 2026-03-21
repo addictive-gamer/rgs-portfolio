@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.13`  
+> **Versión del archivo:** `rabgamesstudio_v4.14`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -147,6 +147,16 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.11** | 21 mar 2026 | Sección de Estudios Aliados añadida (Rewite Pictures, ZAYgt, Nightmare Labs, Reptile Games), bilingüe ES/EN, enlace en nav y footer, grid 4→2→2 cols según pantalla. Bug crítico corregido: CSS del sitio destruido por reemplazo fallido — reconstruido desde base v4.10 |
 | **v4.12** | 21 mar 2026 | Breakpoint 430px añadido — optimizado específicamente para resolución 1080×2400px (Android moderno, ~393px CSS viewport) |
 | **v4.13** | 21 mar 2026 | CRT rediseñado como overlay completo (scanlines + viñeta + flicker), cursor rediseñado como punto rosa simple con `z-index:999999` siempre visible, imágenes con `max-width:100%` para evitar desbordamiento en móvil |
+| **v4.14** | 21 mar 2026 | Al activar CRT: fade out del punto rosa (0.4s) y cursor del sistema aparece. Al desactivar CRT: cursor del sistema desaparece y fade in del punto rosa |
+
+### 🔧 Parcheos detallados v4.14
+
+| # | Cambio | Detalle |
+|---|---|---|
+| 1 | Fade out cursor al activar CRT | `body.crt-on #cursor-dot { opacity:0; transition: opacity .4s ease }` — desaparece suavemente |
+| 2 | Cursor sistema al activar CRT | `body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !important }` — el cursor real aparece |
+| 3 | Fade in cursor al desactivar CRT | `toggleCRT()` pone `dot.style.opacity = '1'` con `transition` de 0.4s |
+| 4 | Transición suave | `#cursor-dot` tiene `transition: opacity .4s ease` añadido a las transiciones existentes |
 
 ### 🔧 Parcheos detallados v4.13
 
@@ -786,7 +796,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.13 pesa **529 KB** — CRT rediseñado, cursor punto rosa, imágenes móvil corregidas.
+- La v4.14 pesa **529 KB** — fade cursor en CRT, sistema bilingüe, móvil optimizado.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
