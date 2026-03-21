@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.4.1`  
+> **Versión del archivo:** `rabgamesstudio_v4.5`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -138,6 +138,17 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.3** | 21 mar 2026 | Cursor crosshair bajado de `z-index:99999` a `2000` (estaba por encima de todos los modales y popups bloqueando interacciones), `openLink()` ahora pasa por el exit popup en vez de saltárselo |
 | **v4.4** | 21 mar 2026 | `async function submitForm()` restaurada — la función completa había desaparecido, dejando solo el bloque `try` flotando sin contexto y causando `SyntaxError: await is only valid in async functions`. Error secundario `selectLang is not defined` era consecuencia del SyntaxError que detenía todo el JS |
 | **v4.4.1** | 21 mar 2026 | Cursor oculto durante el popup de idioma (`opacity:0`) — aparece suavemente al seleccionar ES o EN. Antes el crosshair no se veía hasta después de elegir idioma |
+| **v4.5** | 21 mar 2026 | Cursor del sistema restaurado dentro de todos los popups y modales — lang popup, exit popup, modal de juegos y modal legal muestran el cursor normal del sistema en vez del crosshair personalizado |
+
+### 🔧 Parcheos detallados v4.5
+
+| # | Mejora | Detalle |
+|---|---|---|
+| 1 | Cursor sistema en lang popup | `cursor: auto !important` en `#lang-popup` y todos sus hijos |
+| 2 | Cursor sistema en exit popup | `cursor: auto !important` en `#exit-popup` y todos sus hijos |
+| 3 | Cursor sistema en modal de juegos | `cursor: auto !important` en `#gameModal` y todos sus hijos |
+| 4 | Cursor sistema en modal legal | `cursor: auto !important` en `#legalModal` y todos sus hijos |
+| 5 | Regla global de respaldo | CSS adicional `/* ── CURSOR RESTORE IN POPUPS ── */` que cubre todos los popups con una sola regla por si se añaden nuevos elementos |
 
 ### 🔧 Parcheos detallados v4.4.1
 
@@ -642,7 +653,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.4.1 pesa **506 KB** — cursor oculto durante lang popup, aparece suavemente al seleccionar idioma.
+- La v4.5 pesa **507 KB** — cursor del sistema activo en todos los popups y modales.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
