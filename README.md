@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.11`  
+> **Versión del archivo:** `rabgamesstudio_v4.12`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -145,6 +145,24 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.9** | 21 mar 2026 | Versión centralizada en constante JS `VERSION` — cambia un número y el footer se actualiza automáticamente. El footer siempre mostrará la versión correcta en todas las entregas futuras |
 | **v4.10** | 21 mar 2026 | Optimización móvil completa — 5 issues detectados y corregidos: hero buttons apilados, donation buttons apilados, footer centrado, team grid a 1 columna en 480px, status-bar en columna en 480px |
 | **v4.11** | 21 mar 2026 | Sección de Estudios Aliados añadida (Rewite Pictures, ZAYgt, Nightmare Labs, Reptile Games), bilingüe ES/EN, enlace en nav y footer, grid 4→2→2 cols según pantalla. Bug crítico corregido: CSS del sitio destruido por reemplazo fallido — reconstruido desde base v4.10 |
+| **v4.12** | 21 mar 2026 | Breakpoint 430px añadido — optimizado específicamente para resolución 1080×2400px (Android moderno, ~393px CSS viewport). Ajustes en header, hero, secciones, tarjetas, equipo, aliados, modals, formularios y widget de GameJolt |
+
+### 🔧 Parcheos detallados v4.12
+
+| # | Elemento | Ajuste en 430px |
+|---|---|---|
+| 1 | Header | Padding 10px, altura 56px, logo 6px, botones CRT/lang más compactos |
+| 2 | Hero | Título 11/9/7px, subtítulo 13px, botones 6px |
+| 3 | Secciones | Padding 56px↓40px, container 12px, section-title 9px |
+| 4 | Slider | Texto del slide más pequeño, badge 5px |
+| 5 | Tarjetas de juegos | game-title 6px, tags 7px |
+| 6 | Equipo | Avatar 64px, nombre 7px, descripción 11px |
+| 7 | Aliados | Grid 2col, cards 12px padding, avatar 46px |
+| 8 | Modals | Padding 18px↓12px, lang popup 24px |
+| 9 | Footer | copy 9px, links 10px |
+| 10 | GameJolt widget | Stats y nombre ajustados |
+
+**Resolución objetivo:** 1080×2400px físicos → ~393px CSS viewport (densidad ×2.75)
 
 ### 🔧 Parcheos detallados v4.11
 
@@ -756,7 +774,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.11 pesa **527 KB** con CSS completo de 36,989 chars — sección de aliados funcionando, móvil optimizado.
+- La v4.12 pesa **529 KB** — breakpoint 430px optimizado para 1080×2400px (Xata Jr's phone 😄).
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
