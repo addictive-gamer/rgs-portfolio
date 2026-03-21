@@ -419,38 +419,16 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   .lp-box{padding:32px 24px;}
 }
 
-/* ── CUSTOM CURSOR ── */
-*, *::before, *::after { cursor: none !important; }
-#cursor-outer {
-  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999;
-  width: 32px; height: 32px; margin: -16px 0 0 -16px;
-  border: 1.5px solid var(--pink); border-radius: 50%;
-  transition: transform 0.12s ease, border-color 0.2s, opacity 0.2s;
-  mix-blend-mode: screen;
-}
-#cursor-inner {
-  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999;
-  width: 6px; height: 6px; margin: -3px 0 0 -3px;
-  background: var(--pink); border-radius: 50%;
-  transition: transform 0.06s ease;
-  box-shadow: 0 0 8px var(--pink);
-}
-body.cursor-hover #cursor-outer {
-  transform: scale(1.7);
-  border-color: var(--purple);
-  background: rgba(179,71,255,0.08);
-}
-body.cursor-click #cursor-outer { transform: scale(0.85); }
-body.crt-on #cursor-outer { border-color: var(--green); }
-body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 8px var(--green); }
-</style>
-</head>
-<body>
-
-<div class="pixel-bg"></div>
-<div id="mouse-blob"></div>
-<div id="notif"></div>
-<div id="cursor-outer"></div>
+/* ── CUSTOM CURSOR CROSSHAIR ── */
+<div id="cursor-outer">
+  <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <line x1="14" y1="0" x2="14" y2="10" stroke="var(--pink)" stroke-width="1.5"/>
+    <line x1="14" y1="18" x2="14" y2="28" stroke="var(--pink)" stroke-width="1.5"/>
+    <line x1="0" y1="14" x2="10" y2="14" stroke="var(--pink)" stroke-width="1.5"/>
+    <line x1="18" y1="14" x2="28" y2="14" stroke="var(--pink)" stroke-width="1.5"/>
+    <circle cx="14" cy="14" r="4" fill="none" stroke="var(--pink)" stroke-width="1.5"/>
+  </svg>
+</div>
 <div id="cursor-inner"></div>
 
 <!-- ═══ LANGUAGE POPUP ═══ -->
@@ -1250,13 +1228,13 @@ const IMG = {
     requestAnimationFrame(loop);
   }
   loop();
-  const hoverEls = 'a,button,.btn,.game-card,.game-full-card,.blog-card,.news-feature,.news-mini,.faq-q,.slider-arrow,.dot,.socials-list li,.embed-placeholder,.team-card,.lp-btn,.lang-toggle,.hamburger,.nav-logo';
+  const hoverEls = 'a,button,.btn,.game-card,.game-full-card,.news-feature,.news-mini,.faq-q,.slider-arrow,.dot,.socials-list li,.embed-placeholder,.team-card,.lp-btn,.lang-toggle,.hamburger,.nav-logo';
   document.querySelectorAll(hoverEls).forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
   document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
-  document.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
+  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
   document.addEventListener('mouseleave', () => { outer.style.opacity='0'; inner.style.opacity='0'; });
   document.addEventListener('mouseenter', () => { outer.style.opacity='1'; inner.style.opacity='1'; });
 })();
