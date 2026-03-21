@@ -629,6 +629,79 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   .allied-avatar{width:52px;height:52px;}
   .allied-name{font-size:6px;}
 }
+/* ── 430px: Optimizado para 1080x2400px (Android moderno) ── */
+@media(max-width:430px){
+  /* Header */
+  #header{padding:0 10px;height:56px;}
+  .nav-logo{font-size:6px;gap:6px;}
+  .nav-logo img{width:22px;height:22px;}
+  .lang-toggle{font-size:5px;padding:5px 7px;}
+  #crt-btn{font-size:5px;padding:5px 7px;}
+
+  /* Hero */
+  .hero-title{font-size:11px;}
+  .hero-title .l2{font-size:9px;}
+  .hero-title .l3{font-size:7px;}
+  .hero-sub{font-size:13px;}
+  .hero-btns{gap:6px;}
+  .hero-btns .btn{font-size:6px;padding:10px 14px;}
+
+  /* Sections */
+  section{padding:56px 0 40px;}
+  .container{padding:0 12px;}
+  .section-title{font-size:9px;}
+  .section-label{font-size:5px;letter-spacing:2px;}
+
+  /* Slider */
+  .slide-info h3{font-size:6px;}
+  .slide-info p{font-size:7px;}
+  .slide-badge{font-size:5px;padding:4px 7px;}
+
+  /* Game cards */
+  .game-title{font-size:6px;}
+  .tag{font-size:7px;padding:2px 6px;}
+  .gfc-title{font-size:6px;}
+  .gfc-desc{font-size:11px;}
+
+  /* Team */
+  .team-avatar{width:64px;height:64px;}
+  .team-name{font-size:7px;}
+  .team-role{font-size:8px;}
+  .team-desc{font-size:11px;}
+
+  /* Allied */
+  .allied-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .allied-card{padding:12px 8px;}
+  .allied-avatar{width:46px;height:46px;}
+  .allied-name{font-size:5px;}
+  .allied-handle{font-size:8px;}
+
+  /* Blog */
+  .blog-title{font-size:6px;}
+  .blog-excerpt{font-size:11px;}
+
+  /* Buttons */
+  .btn{font-size:6px;padding:10px 14px;}
+
+  /* Modals */
+  .modal-inner,.legal-inner{padding:18px 12px;}
+  .lp-box{padding:24px 16px;}
+  .lp-title{font-size:9px;}
+  .lp-btn{padding:12px 18px;}
+
+  /* Footer */
+  .footer-copy{font-size:9px;}
+  .footer-col a{font-size:10px;}
+  .footer-col h4{font-size:6px;}
+
+  /* Forms */
+  .form-input,.form-select,.form-textarea{font-size:11px;padding:8px 11px;}
+
+  /* GameJolt widget */
+  .gj-name{font-size:7px;}
+  .gj-stat-num{font-size:9px;}
+  .gj-stat-label{font-size:6px;}
+}
 /* ── CUSTOM CURSOR CROSSHAIR ── */
 *, *::before, *::after { cursor: none !important; }
 #cursor-outer {
@@ -1640,7 +1713,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.11';
+const VERSION = 'v4.12';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
