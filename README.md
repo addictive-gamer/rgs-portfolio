@@ -51,9 +51,16 @@
 | YouTube | https://www.youtube.com/@RabbitGamesOficial |
 | JBS_GAMES™ (colaborador) | https://gamejolt.com/@Jbs_Games |
 
-### Colaboraciones activas
+### Equipo actual
 
-**JBS_GAMES™** (`@Jbs_Games` en GameJolt) es el principal colaborador externo del estudio. Juntos desarrollaron **The Run** y **VaultPlanet**, ambos disponibles en GameJolt.
+| Nombre | Rol | Notas |
+|---|---|---|
+| **Rab** | Fundador & CEO / Director | Visión creativa, narrativa, desarrollo. 15 años. |
+| **Skellent** | Programador | Desarrollo técnico de los proyectos |
+| **LouArtStuff** | Diseñadora Gráfica | Identidad visual y arte del estudio |
+| **Silly** | Rol por confirmar | Miembro activo del equipo |
+| **Xata Jr** (a.k.a. Addictive Gamer) | Ilustrador & Sprite Artist + Admin Web | Administrador del repositorio y sitio web. Portfolio: [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio) |
+| **JBS_GAMES™** | Colaborador & Aliado externo | Desarrollo de The Run y VaultPlanet |
 
 ---
 
@@ -118,9 +125,10 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 
 | Versión | Fecha | Cambios principales |
 |---|---|---|
-| **v1** | 2025 | Primera versión — estructura completa, CRT, slider, secciones base |
-| **v2** | 2025 | Imágenes reales integradas (base64 + CDN), links activos, logos de estudio, sección de redes sociales, modal de juegos con galería |
-| **v3** | 21 mar 2026 | Popup de idioma (ES/EN) al entrar, traducción completa de 178 elementos, favicon, SVGs en lugar de emojis, sección de Equipo, políticas legales completas en modal, formulario listo para Google Sheets, link al repo y portafolio en footer |
+| **v1** | 20 mar 2026 | Primera versión — estructura completa, CRT, slider, secciones base |
+| **v2** | 20 mar 2026 | Imágenes reales integradas (base64 + CDN), links activos, logos de estudio, sección de redes sociales, modal de juegos con galería |
+| **v3** | 21 mar 2026 | Popup de idioma (ES/EN) al entrar, traducción completa de 178 elementos, favicon, SVGs en lugar de emojis, sección de Equipo, políticas legales completas en modal, formulario conectado a Google Sheets, link al repo y portafolio en footer |
+| **v3.1** | 21 mar 2026 | Equipo completo con fotos reales (Rab, Skellent, LouArtStuff, Silly, JBS_GAMES™, Xata Jr), cursor personalizado con inercia y efecto hover/click, Xata Jr documentado como Ilustrador & Sprite Artist + Admin Web |
 
 ---
 
@@ -159,7 +167,7 @@ footer             → Links, plataformas, repo GitHub, portafolio, legal
 | **Mouse blob** | Gradiente radial morado que sigue el cursor. |
 | **Notificaciones** | Toast en esquina inferior derecha para acciones sin URL real. |
 | **Menú hamburguesa** | Versión móvil del nav, desplegable. |
-| **Favicon** | Logo de RabGamesStudio en la pestaña del navegador. |
+| **Cursor personalizado** | Círculo con inercia (lerp) + punto central. Se agranda en hover, comprime en click, verde con CRT ON. |
 
 ---
 
@@ -459,11 +467,11 @@ Estas son las partes marcadas como `PRÓXIMAMENTE` o con placeholders en la v3 a
 | Link real de Ko-fi | `btn-kofi` en `#support` | Cambiar `href` a tu perfil de Ko-fi |
 | Servidor de Discord | Panel Discord en `#social-embeds` | Agregar link de invitación + quitar `opacity:.6` |
 | Trailers de YouTube | Panel YouTube en `#social-embeds` | Reemplazar placeholder por `<iframe>` con video ID |
-| URL de Google Sheets | `const SHEET_URL = 'YOUR_APPS_SCRIPT_URL_HERE'` | Seguir la guía de Apps Script abajo |
 | Entradas reales de blog | `#news-full` | Reemplazar textos placeholder con posts reales |
+| Foto de Xata Jr | Tarjeta equipo en `#team` | SVG placeholder — reemplazar por imagen real cuando esté disponible |
 | Sección de Merch | No implementada | Crear cuando el merch esté listo |
-| Página de Zero-State: LYXA | Tarjeta en `#games-full` | Agregar link cuando exista la página en GameJolt |
-| Foto real de Rab | Tarjeta equipo en `#team` | Reemplazar avatar CDN por imagen personalizada |
+| Página de Zero-State: LYXA | Tarjeta en `#games-full` | Agregar link cuando exista en GameJolt |
+| ~~Google Sheets~~ | ~~`SHEET_URL`~~ | ✅ **Conectado** — URL real en el HTML |
 
 ### 📊 Cómo conectar el formulario a Google Sheets
 
@@ -531,24 +539,30 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 | Diseño y desarrollo web | Claude (Anthropic) — Generado para RabGamesStudio™ |
 | Arte de juegos | RabGamesStudio™ |
 | Arte de colaboraciones | RabGamesStudio™ × JBS_GAMES™ |
+| Ilustración & Sprites | Xata Jr (Addictive Gamer) |
 | Fuente "Press Start 2P" | CodeMan38 — Google Fonts (OFL) |
 | Fuente "Share Tech Mono" | Carrois Apostrophe — Google Fonts (OFL) |
 | Fuente "Rajdhani" | Indian Type Foundry — Google Fonts (OFL) |
-| Imágenes CDN | GameJolt CDN (m.gjcdn.net) |
+| Imágenes CDN | GameJolt CDN · Wix CDN |
 | Iconos | SVGs inline personalizados (sin dependencias externas) |
+| Formulario | Google Apps Script → Google Sheets |
 | Hosting sugerido | GitHub Pages / Netlify |
 | Repositorio | [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio) |
 | Portafolio en vivo | [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/) |
+| Admin del repo & web | Xata Jr — [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio) |
 
 ---
 
 ## 📝 Notas finales
 
-- La v3 pesa aproximadamente **491 KB** gracias a las imágenes base64 embebidas.
-- Las URLs de GameJolt CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs desde los perfiles de GameJolt.
-- El sistema de idiomas cubre **178 elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
+- La v3.1 pesa aproximadamente **499 KB** gracias a las imágenes base64 embebidas.
+- Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
+- El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
+- El formulario de contacto está conectado a Google Sheets vía Apps Script. Cada envío genera una fila con: fecha, nombre, email, tipo, mensaje e idioma.
+- El cursor personalizado usa interpolación lineal (lerp) para el círculo exterior, dando un efecto de inercia suave.
 - El CRT effect es una característica de identidad de RabGamesStudio. No eliminar.
+- **Administrador del repositorio y sitio web:** Xata Jr (Addictive Gamer) — [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio)
 
 ---
 
