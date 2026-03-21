@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v3.3`  
+> **Versión del archivo:** `rabgamesstudio_v4.2`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -131,6 +131,41 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v3.1** | 21 mar 2026 | Equipo completo con fotos reales desde Wix CDN (Rab, Skellent, LouArtStuff, Silly, JBS_GAMES™), cursor personalizado con inercia (lerp), Google Sheets conectado con URL real, Xata Jr añadido como Ilustrador & Sprite Artist + Admin Web con foto de Instagram |
 | **v3.2** | 21 mar 2026 | Cursor reemplazado por crosshair SVG, bug de traducción corregido (silly_role duplicado en EN), Silly actualizado a Voice Actor (VA), todos los miembros del equipo con `data-i18n` correcto (LouArtStuff, Skellent, Silly, Xata Jr ya traducen en ambas direcciones sin bug), créditos en pie de página (GitHub Pages + Repositorio + Claude) |
 | **v3.3** | 21 mar 2026 | Google Sheets reemplazado por Formspree (más confiable, mensajes llegan directo al correo), claves ES faltantes añadidas (`skel_role`, `lou_role`, `silly_role`, `xata_role` y sus `_desc`), foto de Xata Jr restaurada con borde morado, Silly corregido a Voice Actor (VA) en ES |
+| **v3.4** | 21 mar 2026 | Cursor crosshair restaurado (CSS + HTML SVG + JS lerp), el bloque JS del cursor había sido eliminado accidentalmente durante ediciones manuales |
+| **v4.0** | 21 mar 2026 | Reparación estructural crítica — el archivo tenía `</body>` dentro del `<head>` y el cursor CSS pegado sin reglas ni cierre `</style></head><body>`, causando pantalla negra completa. Archivo reconstruido con estructura HTML válida restaurada |
+| **v4.1** | 21 mar 2026 | Archivo truncado al subirse a GitHub — reconstruido desde base v4.0 validada con 23 checks ✅ |
+| **v4.2** | 21 mar 2026 | Popup de salida al hacer click en links externos — muestra la URL destino, botón "Sí, ir ↗" abre en nueva pestaña, "Cancelar" cierra. Bilingüe ES/EN. No aplica a mailto ni anclas internas |
+
+### 🔧 Parcheos detallados v4.2
+
+| # | Mejora | Detalle |
+|---|---|---|
+| 1 | Popup de salida (exit popup) | Intercepta todos los links externos `http/https` — muestra modal con URL destino antes de salir |
+| 2 | Bilingüe | Usa claves `exit_title`, `exit_yes`, `exit_no` del objeto T — cambia automáticamente con el idioma |
+| 3 | Excepciones | No aplica a `mailto:`, anclas `#seccion` ni links `javascript:` — solo externos |
+| 4 | Cierre por fondo | Click fuera del popup también lo cierra |
+| 5 | Re-inicialización | Al cambiar de idioma `interceptLinks()` se vuelve a ejecutar para actualizar los textos del popup |
+
+### 🔧 Parcheos detallados v4.1
+
+| # | Bug / Mejora | Causa | Solución |
+|---|---|---|---|
+| 1 | Página cargaba pero nada funcionaba | Archivo truncado al guardarse/subirse — faltaba todo desde la mitad del `submitForm` hasta el final | Reconstruido desde base v4.0 validada internamente |
+| 2 | Validación completa 23/23 ✅ | — | Body, head, style, script, body, html, 9 secciones, cursor CSS+JS, Formspree, foto Xata Jr, todas las traducciones ES+EN, applyLang, equipo completo, popup, modales, GitHub, portafolio, crédito Claude |
+
+### 🔧 Parcheos detallados v4.0
+
+| # | Bug / Mejora | Causa | Solución |
+|---|---|---|---|
+| 1 | Pantalla completamente negra | `</body>` dentro de `<head>` + CSS del cursor pegado sin reglas ni `</style></head><body>` — todo el body quedó dentro del head | Reconstruido el archivo con estructura correcta: CSS del crosshair completo + `</style></head><body>` en el lugar correcto |
+| 2 | `<body></body>` vacío en DevTools | El navegador ignoraba todo el contenido al no encontrar un `<body>` válido | Restaurada la etiqueta `<body>` de apertura en la posición correcta |
+
+### 🔧 Parcheos detallados v3.4
+
+| # | Bug / Mejora | Causa | Solución |
+|---|---|---|---|
+| 1 | Cursor muerto por segunda vez | El bloque JS `(function(){...})()` del cursor fue eliminado durante ediciones manuales del archivo | Restaurados los 3 bloques completos: CSS crosshair, HTML SVG y JS con lerp |
+| 2 | Cursor circular reemplazado por crosshair | Solicitud estética | SVG crosshair con líneas y círculo central rosa, inercia suave, hover scale, click shrink, verde con CRT |
 
 ### 🔧 Parcheos detallados v3.3
 
@@ -492,10 +527,14 @@ Estas son las partes marcadas como `PRÓXIMAMENTE` o con placeholders en la v3 a
 | Servidor de Discord | Panel Discord en `#social-embeds` | Agregar link de invitación + quitar `opacity:.6` |
 | Trailers de YouTube | Panel YouTube en `#social-embeds` | Reemplazar placeholder por `<iframe>` con video ID |
 | Entradas reales de blog | `#news-full` | Reemplazar textos placeholder con posts reales |
-| Foto de Xata Jr | Tarjeta equipo en `#team` | SVG placeholder — reemplazar por imagen real cuando esté disponible |
+| Foto de Xata Jr permanente | Tarjeta equipo — URL de Instagram expira | Subir imagen a GitHub Assets o Imgur y reemplazar la URL |
 | Sección de Merch | No implementada | Crear cuando el merch esté listo |
 | Página de Zero-State: LYXA | Tarjeta en `#games-full` | Agregar link cuando exista en GameJolt |
 | ~~Google Sheets~~ | ~~`SHEET_URL`~~ | ✅ **Migrado a Formspree** — mensajes llegan a rabbitgames0103@gmail.com |
+| ~~Idioma inglés~~ | ~~stub~~ | ✅ **Implementado** — 178+ elementos bilingües |
+| ~~Políticas legales~~ | ~~páginas separadas~~ | ✅ **Implementadas** — modales integrados en la web |
+
+> ⚠️ **Nota sobre edición manual:** Cada vez que edites el HTML a mano, ten cuidado de no borrar `</style></head><body>` — esa línea es crítica. Si la página se pone negra, ese es el primer lugar donde buscar.
 
 ### 📊 Cómo conectar el formulario a Google Sheets
 
@@ -579,7 +618,15 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v3.3 pesa aproximadamente **502 KB** gracias a las imágenes base64 embebidas.
+- La v4.2 pesa **505 KB** — validada con 13 checks internos antes de entregarse.
+- Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
+- El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
+- Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
+- El formulario de contacto está conectado a **Formspree** (`formspree.io/f/xojkzalj`) — los mensajes llegan directo a rabbitgames0103@gmail.com.
+- El cursor crosshair usa interpolación lineal (lerp) para el círculo exterior, dando un efecto de inercia suave.
+- El CRT effect es una característica de identidad de RabGamesStudio. No eliminar.
+- **Administrador del repositorio y sitio web:** Xata Jr (Addictive Gamer) — [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio)
+- ⚠️ **IMPORTANTE:** Al editar el archivo manualmente, NO borrar ni mover el bloque `</style></head><body>` — es lo que separa el CSS del contenido HTML. Si se rompe, la página se pone negra.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
