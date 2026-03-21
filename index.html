@@ -1648,33 +1648,30 @@ document.getElementById('legalModal').addEventListener('click',function(e){if(e.
 
 // ── CONTACT FORM ──
 // To connect to Google Sheets, replace SHEET_URL with your Apps Script Web App URL
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxaxVp9gbDQ4viStdAksh90qEQm--U5e2SYo45Rv2G_d6-sT5lgh3u6DAWQViZzPfOm/exec';
-async function submitForm() {
-  const name = document.getElementById('f_name').value.trim();
-  const email = document.getElementById('f_email').value.trim();
-  const type = document.getElementById('f_type').value;
-  const msg = document.getElementById('f_msg').value.trim();
-  const status = document.getElementById('formStatus');
-  if(!name||!email||!msg) { status.style.display='block'; status.className='form-status err'; status.textContent='[ '+( lang==='es'?'Por favor completa todos los campos':'Please fill all required fields')+' ]'; return; }
-  if(SHEET_URL==='YOUR_APPS_SCRIPT_URL_HERE') {
-    // Demo mode — no backend connected
-    status.style.display='block'; status.className='form-status ok';
-    status.textContent='[ '+(lang==='es'?T.es.notif_sent:T.en.notif_sent)+' ]';
-    document.getElementById('f_name').value='';
-    document.getElementById('f_email').value='';
-    document.getElementById('f_msg').value='';
-    return;
-  }
-  try {
-    status.style.display='block'; status.className='form-status'; status.textContent=lang==='es'?'Enviando...':'Sending...';
-    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name,email,type,message:msg,lang,date:new Date().toISOString()})});
-    status.className='form-status ok'; status.textContent='[ '+(lang==='es'?T.es.notif_sent:T.en.notif_sent)+' ]';
-    document.getElementById('f_name').value='';document.getElementById('f_email').value='';document.getElementById('f_msg').value='';
+const SHEET_URL = 'https://formspree.io/f/xojkzalj';
+try {
+    status.style.display='block'; status.className='form-status';
+    status.textContent=lang==='es'?'Enviando...':'Sending...';
+    const res = await fetch(SHEET_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,type,message:msg,lang})
+    });
+    const data = await res.json();
+    if(data.ok) {
+      status.className='form-status ok';
+      status.textContent='[ '+(lang==='es'?T.es.notif_sent:T.en.notif_sent)+' ]';
+      document.getElementById('f_name').value='';
+      document.getElementById('f_email').value='';
+      document.getElementById('f_msg').value='';
+    } else {
+      status.className='form-status err';
+      status.textContent=lang==='es'?'[ Error al enviar ]':'[ Error sending ]';
+    }
   } catch(err) {
-    status.className='form-status err'; status.textContent=lang==='es'?'[ Error al enviar ]':'[ Error sending ]';
+    status.className='form-status err';
+    status.textContent=lang==='es'?'[ Error al enviar ]':'[ Error sending ]';
   }
-}
 
 // ── INIT ──
 applyLang('es');
