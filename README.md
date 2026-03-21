@@ -1,9 +1,11 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v2.html`  
-> **Última actualización:** 2025  
+> **Versión del archivo:** `rabgamesstudio_v3.html`  
+> **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
-> **Contacto oficial:** rabbitgames0103@gmail.com
+> **Contacto oficial:** rabbitgames0103@gmail.com  
+> **Repositorio:** [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio)  
+> **Portafolio en vivo:** [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/)
 
 ---
 
@@ -11,15 +13,16 @@
 
 1. [Sobre RabGamesStudio](#sobre-rabgamesstudio)
 2. [Sobre este archivo HTML](#sobre-este-archivo-html)
-3. [Estructura de la web](#estructura-de-la-web)
-4. [Guía para el dueño del estudio](#guía-para-el-dueño-del-estudio)
-5. [Guía para usuarios / visitantes](#guía-para-usuarios--visitantes)
-6. [Guía para IAs y desarrolladores](#guía-para-ias-y-desarrolladores)
-7. [Assets y recursos integrados](#assets-y-recursos-integrados)
-8. [Links activos en la web](#links-activos-en-la-web)
-9. [Lo que falta completar](#lo-que-falta-completar)
-10. [Cómo publicar en GitHub Pages / Netlify](#cómo-publicar-en-github-pages--netlify)
-11. [Créditos y herramientas](#créditos-y-herramientas)
+3. [Historial de versiones](#historial-de-versiones)
+4. [Estructura de la web](#estructura-de-la-web)
+5. [Guía para el dueño del estudio](#guía-para-el-dueño-del-estudio)
+6. [Guía para usuarios / visitantes](#guía-para-usuarios--visitantes)
+7. [Guía para IAs y desarrolladores](#guía-para-ias-y-desarrolladores)
+8. [Assets y recursos integrados](#assets-y-recursos-integrados)
+9. [Links activos en la web](#links-activos-en-la-web)
+10. [Lo que falta completar](#lo-que-falta-completar)
+11. [Cómo publicar en GitHub Pages / Netlify](#cómo-publicar-en-github-pages--netlify)
+12. [Créditos y herramientas](#créditos-y-herramientas)
 
 ---
 
@@ -90,7 +93,7 @@
 
 ## 📄 Sobre este archivo HTML
 
-El sitio web de RabGamesStudio está construido como un **único archivo HTML autocontenido** (`rabgamesstudio_v2.html`). No requiere servidor, base de datos, ni dependencias instaladas localmente — solo un navegador web moderno.
+El sitio web de RabGamesStudio está construido como un **único archivo HTML autocontenido** (`rabgamesstudio_v3.html`). No requiere servidor, base de datos, ni dependencias instaladas localmente — solo un navegador web moderno.
 
 ### Tecnologías usadas
 
@@ -111,34 +114,52 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 
 ---
 
+## 📦 Historial de versiones
+
+| Versión | Fecha | Cambios principales |
+|---|---|---|
+| **v1** | 2025 | Primera versión — estructura completa, CRT, slider, secciones base |
+| **v2** | 2025 | Imágenes reales integradas (base64 + CDN), links activos, logos de estudio, sección de redes sociales, modal de juegos con galería |
+| **v3** | 21 mar 2026 | Popup de idioma (ES/EN) al entrar, traducción completa de 178 elementos, favicon, SVGs en lugar de emojis, sección de Equipo, políticas legales completas en modal, formulario listo para Google Sheets, link al repo y portafolio en footer |
+
+---
+
 ## 🗂 Estructura de la web
 
-La web es una **Single Page Application (SPA)** con scroll suave entre secciones. El orden de las secciones es:
+La web es una **Single Page Application (SPA)** con scroll suave entre secciones. El orden de las secciones en la v3 es:
 
 ```
+[popup de idioma]   → aparece al entrar, elige ES o EN
 #home              → Hero + Slider + Preview de juegos + Blog preview
 #about-home        → Resumen del estudio con avatares
 #support           → Apoyanos (PayPal / Ko-fi)
-#games-full        → Catálogo completo con 6 tarjetas
+#games-full        → Catálogo completo con 6 tarjetas + SVGs
 #about-full        → Historia completa + Filosofía
+#team              → Equipo (Rab + JBS_GAMES™ + Posición abierta)
 #news-full         → Blog destacado + sidebar
 #social-embeds     → Paneles de YouTube, GameJolt, itch.io, Discord
-#contact           → Formulario + redes + FAQ
-footer             → Links, plataformas, legal
+#contact           → Formulario (Google Sheets listo) + redes + FAQ
+footer             → Links, plataformas, repo GitHub, portafolio, legal
+[modal de juegos]  → Ficha con galería al click en TTTH o His Destiny
+[modal legal]      → Políticas completas (privacidad, términos, etc.)
 ```
 
 ### Componentes interactivos
 
 | Componente | Descripción |
 |---|---|
+| **Popup de idioma** | Aparece al cargar la página. Elige ES o EN con bandera. |
+| **Toggle de idioma** | Botón en el header (🇬🇧 ENG / 🇪🇸 ESP) para cambiar en cualquier momento. |
 | **Slider del hero** | Auto-avanza cada 4.8s. Flechas manuales y dots. 3 slides. |
-| **Botón CRT** | Activa/desactiva efecto scanlines + aberración cromática en todo el body |
-| **Modal de juegos** | Al hacer click en Talk to the Hand o His Destiny se abre ficha completa con galería de 3 imágenes |
-| **FAQ accordion** | Click en pregunta expande/colapsa la respuesta |
-| **Mouse blob** | Gradiente radial morado que sigue el cursor (atmósfera) |
-| **Notificaciones** | Toast en esquina inferior derecha para acciones sin URL real |
-| **Menú hamburguesa** | Versión móvil del nav, desplegable |
-| **Selector de idioma** | ESP/ENG — ENG muestra notificación "Coming Soon" |
+| **Botón CRT** | Activa/desactiva efecto scanlines + aberración cromática en todo el body. |
+| **Modal de juegos** | Click en Talk to the Hand o His Destiny abre ficha con galería bilingüe. |
+| **Modal legal** | Click en cualquier política del footer abre el texto completo sin salir de la página. |
+| **FAQ accordion** | Click en pregunta expande/colapsa la respuesta. |
+| **Formulario** | Listo para conectar a Google Sheets vía Apps Script (ver guía abajo). |
+| **Mouse blob** | Gradiente radial morado que sigue el cursor. |
+| **Notificaciones** | Toast en esquina inferior derecha para acciones sin URL real. |
+| **Menú hamburguesa** | Versión móvil del nav, desplegable. |
+| **Favicon** | Logo de RabGamesStudio en la pestaña del navegador. |
 
 ---
 
@@ -290,17 +311,23 @@ Todas las variables de diseño están en `:root`. Modificar aquí afecta todo el
 
 | Función | Descripción |
 |---|---|
-| `scrollTo(id)` | Scroll suave a sección por ID |
+| `selectLang(v)` | Cierra el popup y aplica el idioma elegido |
+| `toggleLang()` | Alterna entre ES y EN desde el botón del header |
+| `applyLang(v)` | Aplica el idioma a todos los elementos `data-i18n` y placeholders |
+| `goTo(id)` | Scroll suave a sección por ID |
+| `goHome()` | Alias de `goTo('home')` |
 | `toggleCRT()` | Activa/desactiva clase `crt-on` en body |
-| `changeLang(v)` | Cambia idioma (stub para implementación futura) |
 | `slideMove(dir)` | Mueve slider ±1 |
 | `goSlide(n)` | Va directo al slide N |
 | `toggleFAQ(el)` | Toggle clase `open` en `.faq-item` |
 | `showNotif(msg)` | Muestra toast en `#notif` por 3 segundos |
 | `openLink(url)` | `window.open(url, '_blank')` |
 | `toggleMenu()` | Despliega nav móvil |
-| `openModal(id)` | Abre modal con data de `games[id]` |
-| `closeModal()` | Cierra modal |
+| `openModal(id)` | Abre modal de juego con data bilingüe de `games[id]` |
+| `closeModal()` | Cierra modal de juego |
+| `openLegal(type)` | Abre modal legal con contenido de `LEGAL[type][lang]` |
+| `closeLegal()` | Cierra modal legal |
+| `submitForm()` | Envía formulario al endpoint de Google Sheets (o modo demo) |
 
 ### Objeto de datos de juegos (`games`)
 
@@ -424,20 +451,41 @@ Solo hay un breakpoint en `@media (max-width: 768px)` que convierte todos los gr
 
 ## ⏳ Lo que falta completar
 
-Estas son las partes marcadas como `PRÓXIMAMENTE` o con placeholders en la web actual:
+Estas son las partes marcadas como `PRÓXIMAMENTE` o con placeholders en la v3 actual:
 
 | Pendiente | Dónde en el HTML | Acción necesaria |
 |---|---|---|
-| Link real de PayPal | `btn-paypal` en `#support` | Cambiar `href` al link de donación |
+| Link real de PayPal | `btn-paypal` en `#support` | Cambiar `href` al link de donación directo |
 | Link real de Ko-fi | `btn-kofi` en `#support` | Cambiar `href` a tu perfil de Ko-fi |
-| Servidor de Discord | Panel Discord en `#social-embeds` | Agregar link de invitación + quitar opacidad |
-| Trailers de YouTube | Panel YouTube en `#social-embeds` | Reemplazar placeholder por iframe con video ID |
+| Servidor de Discord | Panel Discord en `#social-embeds` | Agregar link de invitación + quitar `opacity:.6` |
+| Trailers de YouTube | Panel YouTube en `#social-embeds` | Reemplazar placeholder por `<iframe>` con video ID |
+| URL de Google Sheets | `const SHEET_URL = 'YOUR_APPS_SCRIPT_URL_HERE'` | Seguir la guía de Apps Script abajo |
 | Entradas reales de blog | `#news-full` | Reemplazar textos placeholder con posts reales |
-| Políticas legales | Footer y sección legal | Escribir y linkear los documentos |
-| Sección de Merch | No implementada aún | Crear cuando el merch esté listo |
-| Idioma Inglés | `changeLang()` en JS | Implementar objeto de strings por idioma |
-| Formulario funcional | `#contact` | Conectar a Formspree / Netlify Forms |
-| Página de Zero-State: LYXA | Tarjeta en `#games-full` | Agregar link cuando exista la página |
+| Sección de Merch | No implementada | Crear cuando el merch esté listo |
+| Página de Zero-State: LYXA | Tarjeta en `#games-full` | Agregar link cuando exista la página en GameJolt |
+| Foto real de Rab | Tarjeta equipo en `#team` | Reemplazar avatar CDN por imagen personalizada |
+
+### 📊 Cómo conectar el formulario a Google Sheets
+
+1. Crea una Google Sheet nueva en [sheets.google.com](https://sheets.google.com)
+2. Ve a **Extensiones → Apps Script** y pega este código:
+
+```javascript
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([data.date, data.name, data.email, data.type, data.message, data.lang]);
+  return ContentService.createTextOutput('OK');
+}
+```
+
+3. Guarda con `Ctrl+S`
+4. Click en **Implementar → Nueva implementación**
+5. Tipo: **Aplicación web** — Acceso: **Cualquier persona**
+6. Copia la URL generada
+7. En el HTML busca `YOUR_APPS_SCRIPT_URL_HERE` y reemplázala con esa URL
+
+Cada envío del formulario agrega una fila con: **fecha · nombre · email · tipo · mensaje · idioma**.
 
 ---
 
@@ -487,18 +535,22 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 | Fuente "Share Tech Mono" | Carrois Apostrophe — Google Fonts (OFL) |
 | Fuente "Rajdhani" | Indian Type Foundry — Google Fonts (OFL) |
 | Imágenes CDN | GameJolt CDN (m.gjcdn.net) |
+| Iconos | SVGs inline personalizados (sin dependencias externas) |
 | Hosting sugerido | GitHub Pages / Netlify |
+| Repositorio | [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio) |
+| Portafolio en vivo | [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/) |
 
 ---
 
 ## 📝 Notas finales
 
-- Este archivo HTML pesa aproximadamente **436 KB** gracias a las imágenes base64 embebidas. Para un sitio más ligero en producción, se recomienda mover las imágenes a archivos externos.
-- Las URLs de GameJolt CDN son estables pero no están bajo control del estudio. Si el CDN cambia, las imágenes pueden dejar de funcionar.
-- El sitio está pensado para crecer — cada sección es independiente y se puede extender sin afectar las demás.
+- La v3 pesa aproximadamente **491 KB** gracias a las imágenes base64 embebidas.
+- Las URLs de GameJolt CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs desde los perfiles de GameJolt.
+- El sistema de idiomas cubre **178 elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
+- Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
 - El CRT effect es una característica de identidad de RabGamesStudio. No eliminar.
 
 ---
 
-*README generado para RabGamesStudio™ · 2025 · Todos los derechos reservados.*  
+*README generado para RabGamesStudio™ · 21 de marzo de 2026 · Todos los derechos reservados.*  
 *"No seguimos tendencias — creamos las nuestras."*
