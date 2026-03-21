@@ -739,7 +739,7 @@ img { max-width: 100%; height: auto; }
   border-radius: 50%;
   box-shadow: 0 0 8px var(--pink), 0 0 2px #fff;
   transform: translate(-50%, -50%);
-  transition: background .15s, box-shadow .15s, transform .1s;
+  transition: background .15s, box-shadow .15s, transform .1s, opacity .4s ease;
   top: 0; left: 0;
 }
 body.cursor-hover #cursor-dot {
@@ -750,6 +750,9 @@ body.cursor-hover #cursor-dot {
 body.cursor-click #cursor-dot {
   transform: translate(-50%, -50%) scale(0.7);
 }
+/* CRT mode — fade out custom cursor, restore system cursor */
+body.crt-on #cursor-dot { opacity: 0 !important; transition: opacity .4s ease; }
+body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !important; }
 /* Always visible — even inside popups/modals */
 #lang-popup *, #exit-popup *, #gameModal *, #legalModal * { cursor: auto !important; }
 #lang-popup, #exit-popup, #gameModal, #legalModal { cursor: auto !important; }
@@ -1734,7 +1737,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.13';
+const VERSION = 'v4.14';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
@@ -2159,9 +2162,17 @@ function toggleCRT() {
   const btn = document.getElementById('crt-btn');
   btn.textContent = 'CRT: '+(crtOn?'ON':'OFF');
   btn.classList.toggle('active', crtOn);
-  // Keep cursor dot always above CRT overlay layers
   const dot = document.getElementById('cursor-dot');
-  if(dot) dot.style.zIndex = '999999';
+  if(crtOn) {
+    // CRT ON — fade out custom dot, system cursor fades in via CSS
+    if(dot) dot.style.opacity = '0';
+  } else {
+    // CRT OFF — fade in custom dot, hide system cursor
+    if(dot) {
+      dot.style.opacity = '1';
+      dot.style.zIndex = '999999';
+    }
+  }
 }
 
 // ── SLIDER ──
