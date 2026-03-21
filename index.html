@@ -1254,9 +1254,9 @@ body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 6px var(--
       <span style="font-family:var(--fm);font-size:9px;color:var(--muted2);">
         Desarrollado con
         <a href="https://claude.ai" target="_blank" style="color:var(--pink);text-decoration:none;transition:color .15s;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--pink)'">Claude (Anthropic)</a>
+        · <span style="color:var(--muted2);">v4.3</span>
       </span>
     </div>
-  </div>
 </footer>
 
 <!-- ═══ LEGAL MODAL ═══ -->
@@ -1747,9 +1747,19 @@ function closeLegal() { document.getElementById('legalModal').style.display='non
 document.getElementById('legalModal').addEventListener('click',function(e){if(e.target===this)closeLegal();});
 
 // ── CONTACT FORM ──
-// To connect to Google Sheets, replace SHEET_URL with your Apps Script Web App URL
 const SHEET_URL = 'https://formspree.io/f/xojkzalj';
-try {
+async function submitForm() {
+  const name  = document.getElementById('f_name').value.trim();
+  const email = document.getElementById('f_email').value.trim();
+  const type  = document.getElementById('f_type').value;
+  const msg   = document.getElementById('f_msg').value.trim();
+  const status = document.getElementById('formStatus');
+  if(!name||!email||!msg) {
+    status.style.display='block'; status.className='form-status err';
+    status.textContent='[ '+(lang==='es'?'Por favor completa todos los campos':'Please fill all required fields')+' ]';
+    return;
+  }
+  try {
     status.style.display='block'; status.className='form-status';
     status.textContent=lang==='es'?'Enviando...':'Sending...';
     const res = await fetch(SHEET_URL, {
@@ -1772,6 +1782,7 @@ try {
     status.className='form-status err';
     status.textContent=lang==='es'?'[ Error al enviar ]':'[ Error sending ]';
   }
+}
 
 // ── INIT ──
 applyLang('es');
