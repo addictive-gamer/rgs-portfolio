@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.5`  
+> **Versión del archivo:** `rabgamesstudio_v4.8`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -138,7 +138,68 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.3** | 21 mar 2026 | Cursor crosshair bajado de `z-index:99999` a `2000` (estaba por encima de todos los modales y popups bloqueando interacciones), `openLink()` ahora pasa por el exit popup en vez de saltárselo |
 | **v4.4** | 21 mar 2026 | `async function submitForm()` restaurada — la función completa había desaparecido, dejando solo el bloque `try` flotando sin contexto y causando `SyntaxError: await is only valid in async functions`. Error secundario `selectLang is not defined` era consecuencia del SyntaxError que detenía todo el JS |
 | **v4.4.1** | 21 mar 2026 | Cursor oculto durante el popup de idioma (`opacity:0`) — aparece suavemente al seleccionar ES o EN. Antes el crosshair no se veía hasta después de elegir idioma |
-| **v4.5** | 21 mar 2026 | Cursor del sistema restaurado dentro de todos los popups y modales. Optimización móvil completa: breakpoint 480px nuevo, cursor JS desactivado en dispositivos táctiles, hero buttons en columna, footer centrado, sidebar de noticias oculto en móvil, modales ajustados |
+| **v4.5** | 21 mar 2026 | Cursor del sistema en popups, optimización móvil completa (768px + 480px), cursor JS desactivado en táctil |
+| **v4.6** | 21 mar 2026 | Widget de portafolio GameJolt en `#about-full` (primera versión — widget no se insertó correctamente en el body) |
+| **v4.7** | 21 mar 2026 | Widget GameJolt reconstruido correctamente, logo GitHub, OG meta tags, compatibilidad móvil |
+| **v4.8** | 21 mar 2026 | Open Graph + Twitter Card completos para preview en redes sociales (Discord, WhatsApp, Twitter/X, Facebook), versión `v4.8` en footer, compatibilidad móvil verificada |
+
+### 🔧 Parcheos detallados v4.8
+
+| # | Mejora | Detalle |
+|---|---|---|
+| 1 | Open Graph completo | `og:type`, `og:title`, `og:description`, `og:image` (512×512), `og:url`, `og:site_name` — preview al compartir en Discord, WhatsApp, Facebook, etc. |
+| 2 | Twitter Card | `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image` — preview en Twitter/X |
+| 3 | Versión en footer | `v4.8` visible junto a los créditos de Claude en el pie de página |
+| 4 | Móvil verificado | Breakpoints 768px y 480px confirmados activos |
+| 2 | `id="footer-version"` | Span en el footer con el número de versión visible para el usuario |
+| 3 | Inyección en `INIT` | `document.getElementById('footer-version').textContent = VERSION` al cargar la página |
+
+### 📝 Cómo actualizar la versión en futuras updates
+
+Para cambiar la versión en el footer, solo hay que modificar **una línea** al inicio del `<script>`:
+
+```javascript
+// ── VERSION ──
+const VERSION = 'v4.8'; // ← cambia esto
+```
+
+El número se refleja automáticamente en el footer sin tocar el HTML. El span en el footer es:
+
+```html
+<span id="footer-version" style="color:var(--muted2);">v4.8</span>
+```
+
+Y el JS que lo actualiza al cargar:
+
+```javascript
+// ── INIT ──
+applyLang('es');
+interceptLinks();
+(function() {
+  const el = document.getElementById('footer-version');
+  if(el) el.textContent = VERSION;
+})();
+```
+
+### 🔧 Parcheos detallados v4.7
+
+| # | Mejora | Detalle |
+|---|---|---|
+| 1 | Widget GameJolt funcional | Reconstruido con inserción correcta en el body — avatar con logo GitHub + badge verificado, descripción, 4 stats, 5 juegos con thumbnails/SVGs |
+| 2 | Logo del repo como imagen | `favicon.png` del repo GitHub usado en el widget y como favicon del sitio |
+| 3 | OG meta tags | `og:title`, `og:image`, `og:url`, `theme-color` para previsualización en redes sociales |
+| 4 | Fallback de imagen | `onerror` en el logo del widget — si falla GitHub CDN usa el avatar de GameJolt |
+| 5 | Móvil compatible | Widget usa inline styles flexbox — funciona en todos los tamaños de pantalla |
+
+### 🔧 Parcheos detallados v4.6
+
+| # | Mejora | Detalle |
+|---|---|---|
+| 1 | Widget GameJolt personalizado | Construido con datos estáticos — avatar CDN, nombre, handle, descripción del estudio |
+| 2 | Estadísticas del estudio | 4 stats: Juegos (5), Lanzados (2), Collabs (2), Activo (2026) |
+| 3 | Portafolio de juegos | Los 5 títulos con thumbnail/SVG, estado (tag coloreado) y link directo a GameJolt |
+| 4 | Bilingüe | 8 claves nuevas en ES y EN — `gj_followers`, `gj_widget_desc`, `gj_stat_*`, `gj_portfolio`, `gj_btn` |
+| 5 | Ubicación | Centrado debajo de la sección `#about-full`, max-width 480px |
 
 ### 🔧 Parcheos detallados v4.5
 
@@ -652,7 +713,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.5 pesa **508 KB** — optimización móvil completa, cursor táctil desactivado, breakpoints 768px y 480px.
+- La v4.8 pesa **522 KB** — Open Graph + Twitter Card completos, preview en redes sociales funcional, versión en footer.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
