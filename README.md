@@ -58,7 +58,7 @@
 | **Rab** | Fundador & CEO / Director | Visión creativa, narrativa, desarrollo. 15 años. |
 | **Skellent** | Programador | Desarrollo técnico de los proyectos |
 | **LouArtStuff** | Diseñadora Gráfica | Identidad visual y arte del estudio |
-| **Silly** | Rol por confirmar | Miembro activo del equipo |
+| **Silly** | Actor de Doblaje (VA) | Interpreta de manera auditiva dentro de los proyectos |
 | **Xata Jr** (a.k.a. Addictive Gamer) | Ilustrador & Sprite Artist + Admin Web | Administrador del repositorio y sitio web. Portfolio: [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio) |
 | **JBS_GAMES™** | Colaborador & Aliado externo | Desarrollo de The Run y VaultPlanet |
 
