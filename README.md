@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.8`  
+> **Versión del archivo:** `rabgamesstudio_v4.9`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -142,6 +142,26 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.6** | 21 mar 2026 | Widget de portafolio GameJolt en `#about-full` (primera versión — widget no se insertó correctamente en el body) |
 | **v4.7** | 21 mar 2026 | Widget GameJolt reconstruido correctamente, logo GitHub, OG meta tags, compatibilidad móvil |
 | **v4.8** | 21 mar 2026 | Open Graph + Twitter Card completos para preview en redes sociales (Discord, WhatsApp, Twitter/X, Facebook), versión `v4.8` en footer, compatibilidad móvil verificada |
+| **v4.9** | 21 mar 2026 | Versión centralizada en constante JS `VERSION` — cambia un número y el footer se actualiza automáticamente. El footer siempre mostrará la versión correcta en todas las entregas futuras |
+
+### 🔧 Parcheos detallados v4.9
+
+| # | Mejora | Detalle |
+|---|---|---|
+| 1 | Constante `VERSION` | Al inicio del JS: `const VERSION = 'v4.9'` — cambiar este valor es suficiente para actualizar el footer |
+| 2 | Footer auto-actualizable | `<span id="footer-version">` inyectado por JS en el `INIT` — nunca más hardcodeado en el HTML |
+| 3 | Política de versiones | De ahora en adelante cada entrega incluye la versión actualizada en el footer automáticamente |
+
+### 📝 Cómo actualizar la versión en futuras updates
+
+Para cambiar la versión, solo hay que modificar **una línea** al inicio del `<script>`:
+
+```javascript
+// ── VERSION ──
+const VERSION = 'v4.9'; // ← cambia esto
+```
+
+El número se refleja automáticamente en el footer sin tocar el HTML.
 
 ### 🔧 Parcheos detallados v4.8
 
@@ -713,7 +733,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.8 pesa **522 KB** — Open Graph + Twitter Card completos, preview en redes sociales funcional, versión en footer.
+- La v4.9 pesa **522 KB** — versión centralizada en JS, footer auto-actualizable en todas las entregas futuras.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
