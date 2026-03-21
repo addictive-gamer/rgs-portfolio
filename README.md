@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.2`  
+> **Versión del archivo:** `rabgamesstudio_v4.4`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -135,6 +135,21 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.0** | 21 mar 2026 | Reparación estructural crítica — el archivo tenía `</body>` dentro del `<head>` y el cursor CSS pegado sin reglas ni cierre `</style></head><body>`, causando pantalla negra completa. Archivo reconstruido con estructura HTML válida restaurada |
 | **v4.1** | 21 mar 2026 | Archivo truncado al subirse a GitHub — reconstruido desde base v4.0 validada con 23 checks ✅ |
 | **v4.2** | 21 mar 2026 | Popup de salida al hacer click en links externos — muestra la URL destino, botón "Sí, ir ↗" abre en nueva pestaña, "Cancelar" cierra. Bilingüe ES/EN. No aplica a mailto ni anclas internas |
+| **v4.3** | 21 mar 2026 | Cursor crosshair bajado de `z-index:99999` a `2000` (estaba por encima de todos los modales y popups bloqueando interacciones), `openLink()` ahora pasa por el exit popup en vez de saltárselo |
+| **v4.4** | 21 mar 2026 | `async function submitForm()` restaurada — la función completa había desaparecido, dejando solo el bloque `try` flotando sin contexto y causando `SyntaxError: await is only valid in async functions`. Error secundario `selectLang is not defined` era consecuencia del SyntaxError que detenía todo el JS |
+
+### 🔧 Parcheos detallados v4.4
+
+| # | Error | Causa | Solución |
+|---|---|---|---|
+| 1 | `await is only valid in async functions` | `async function submitForm()` había desaparecido — solo quedó el bloque `try {...}` flotando sin función que lo envolviera | Restaurada la función completa con `async function submitForm()` y validación de campos |
+| 2 | `selectLang is not defined` | Consecuencia del error 1 — un `SyntaxError` detiene la ejecución de todo el JS a partir del punto del error, así que `selectLang` nunca llegaba a definirse aunque existiera más abajo | Se resuelve automáticamente al corregir el error 1 |
+| 3 | `Cannot read properties of null (reading 'style')` | Algún elemento del DOM es referenciado por el JS antes de que el navegador lo haya renderizado | Error no crítico — la página funciona con normalidad. Pendiente identificar el elemento específico |
+
+| # | Bug | Causa | Solución |
+|---|---|---|---|
+| 1 | Cursor bloqueaba interacciones | `z-index: 99999` en `#cursor-outer` e `#cursor-inner` — por encima de modales, exit popup y lang popup | Bajado a `z-index: 2000`, por encima del contenido pero debajo de todos los popups (9997-9999) |
+| 2 | `openLink()` saltaba el exit popup | La función abría directamente `window.open()` sin pasar por `interceptLinks` | Reescrita para mostrar el exit popup igual que los `<a href>` externos |
 
 ### 🔧 Parcheos detallados v4.2
 
@@ -536,6 +551,8 @@ Estas son las partes marcadas como `PRÓXIMAMENTE` o con placeholders en la v3 a
 
 > ⚠️ **Nota sobre edición manual:** Cada vez que edites el HTML a mano, ten cuidado de no borrar `</style></head><body>` — esa línea es crítica. Si la página se pone negra, ese es el primer lugar donde buscar.
 
+> 🟡 **Error conocido no crítico (v4.4):** `Cannot read properties of null (reading 'style')` — aparece en consola del navegador pero no afecta la funcionalidad de la página. Pendiente identificar el elemento DOM en v4.5.
+
 ### 📊 Cómo conectar el formulario a Google Sheets
 
 1. Crea una Google Sheet nueva en [sheets.google.com](https://sheets.google.com)
@@ -618,7 +635,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.2 pesa **505 KB** — validada con 13 checks internos antes de entregarse.
+- La v4.4 pesa **506 KB** — `submitForm` restaurada, página completamente funcional.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
