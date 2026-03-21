@@ -582,6 +582,20 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   .section-title{font-size:12px;}
   .modal-gallery,.modal-info-grid{grid-template-columns:1fr;}
   .lp-box{padding:32px 24px;}
+  .hero-btns{flex-direction:column;align-items:stretch;gap:8px;}
+  .hero-btns .btn{text-align:center;}
+  .support-btns{flex-direction:column;align-items:center;}
+  .support-btns .btn{width:100%;max-width:280px;text-align:center;}
+  .footer-bottom{flex-direction:column;align-items:center;text-align:center;gap:12px;}
+  .footer-policy{flex-wrap:wrap;justify-content:center;gap:10px;}
+  .footer-copy{text-align:center;}
+  .news-sidebar{display:none;}
+  section{padding:72px 0 52px;}
+  .container{padding:0 16px;}
+  .nav-controls{gap:6px;}
+  .phil-grid{grid-template-columns:1fr;}
+
+  .allied-grid{grid-template-columns:repeat(2,1fr);}
 }
 
 
@@ -594,7 +608,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   .game-full-card{grid-template-columns:1fr;}
   .gfc-thumb,.gfc-thumb-svg{min-height:140px;}
   .embeds-grid{grid-template-columns:1fr;}
-  .hero-btns .btn{width:100%;text-align:center;display:block;}
+  .hero-btns .btn{width:100%;display:block;}
   .lp-btns{flex-direction:column;align-items:center;}
   .lp-btn{width:100%;justify-content:center;}
   .exit-box{padding:20px 14px;}
@@ -602,8 +616,18 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   #header{padding:0 12px;}
   .nav-logo{font-size:7px;}
   .modal-inner,.legal-inner{padding:22px 14px;}
-  .footer-inner{gap:18px;}
-  .status-bar{font-size:8px;gap:10px;}
+  .footer-inner{gap:16px;}
+  .status-bar{font-size:8px;gap:6px;flex-direction:column;}
+  .slide-info h3{font-size:7px;}
+  .slide-info p{font-size:8px;}
+  .gj-stats{flex-wrap:wrap;}
+  .gj-stat{min-width:50%;border-bottom:1px solid var(--border);}
+  .team-grid{grid-template-columns:1fr;}
+
+  .allied-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .allied-card{padding:16px 10px;}
+  .allied-avatar{width:52px;height:52px;}
+  .allied-name{font-size:6px;}
 }
 /* ── CUSTOM CURSOR CROSSHAIR ── */
 *, *::before, *::after { cursor: none !important; }
@@ -626,6 +650,26 @@ body.cursor-hover #cursor-outer { transform: scale(1.5); }
 #exit-popup.show ~ #cursor-outer { opacity: 0 !important; }
 body.cursor-click #cursor-outer { transform: scale(0.8); }
 body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+/* ── ALLIED STUDIOS ── */
+#allied-studios { background: var(--bg-mid); border-top: 1px solid var(--border); }
+.allied-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+}
+.allied-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 24px 16px; text-align: center; transition: all .2s;
+  text-decoration: none; display: block;
+}
+.allied-card:hover { border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 6px 20px var(--blue-glow); }
+.allied-avatar {
+  width: 68px; height: 68px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--border); margin: 0 auto 12px; display: block; transition: all .2s;
+}
+.allied-card:hover .allied-avatar { border-color: var(--blue); box-shadow: 0 0 14px var(--blue-glow); }
+.allied-name { font-family: var(--fp); font-size: 7px; color: var(--white); margin-bottom: 6px; line-height: 1.7; }
+.allied-handle { font-family: var(--fm); font-size: 9px; color: var(--blue); letter-spacing: 1px; margin-bottom: 8px; }
+.allied-tag { font-family: var(--fm); font-size: 8px; color: var(--muted2); }
 </style>
 </head>
 <body>
@@ -688,6 +732,7 @@ body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 6px var(--
       <li><a onclick="goTo('games-full')" data-i18n="nav_games">Juegos</a></li>
       <li><a onclick="goTo('about-full')" data-i18n="nav_about">Nosotros</a></li>
       <li><a onclick="goTo('team')" data-i18n="nav_team">Equipo</a></li>
+      <li><a onclick="goTo('allied-studios')" data-i18n="nav_allied">Aliados</a></li>
       <li><a onclick="goTo('news-full')" data-i18n="nav_blog">Blog</a></li>
       <li><a onclick="goTo('contact')" data-i18n="nav_contact">Contacto</a></li>
       <li><a onclick="goTo('support')" data-i18n="nav_support">Apoyanos</a></li>
@@ -1250,6 +1295,43 @@ body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 6px var(--
   </div>
 </section>
 
+<!-- ═══ ALLIED STUDIOS ═══ -->
+<section id="allied-studios">
+  <div class="container">
+    <div class="section-label" data-i18n="lbl_allied">ESTUDIOS ALIADOS</div>
+    <h2 class="section-title" data-i18n="sec_allied">NUESTRA<br><span>RED DE ALIADOS</span></h2>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:28px;max-width:600px;" data-i18n="allied_desc">
+      Estudios y creadores con los que RabGamesStudio™ comparte visión, colabora o mantiene vínculos dentro de la escena indie.
+    </p>
+    <div class="allied-grid">
+      <a class="allied-card" href="https://gamejolt.com/@Rewite_Pictures" target="_blank">
+        <img src="https://m.gjcdn.net/user-avatar/200/12122190-qyux9rpb-v4.webp" alt="Rewite Pictures" class="allied-avatar">
+        <div class="allied-name">REWITE PICTURES</div>
+        <div class="allied-handle">@Rewite_Pictures</div>
+        <div class="allied-tag">GameJolt ↗</div>
+      </a>
+      <a class="allied-card" href="https://gamejolt.com/@ZAYgt" target="_blank">
+        <img src="https://m.gjcdn.net/user-avatar/200/4902342-8gg3yzpv-v4.webp" alt="ZAYgt" class="allied-avatar">
+        <div class="allied-name">ZAYGT</div>
+        <div class="allied-handle">@ZAYgt</div>
+        <div class="allied-tag">GameJolt ↗</div>
+      </a>
+      <a class="allied-card" href="https://gamejolt.com/@NightmareLabs" target="_blank">
+        <img src="https://m.gjcdn.net/user-avatar/200/7742029-jikipkhz-v4.webp" alt="NightmareLabs" class="allied-avatar">
+        <div class="allied-name">NIGHTMARE LABS</div>
+        <div class="allied-handle">@NightmareLabs</div>
+        <div class="allied-tag">GameJolt ↗</div>
+      </a>
+      <a class="allied-card" href="https://gamejolt.com/@ReptileGames" target="_blank">
+        <img src="https://m.gjcdn.net/user-avatar/200/5279236-crop16_0_472_456-ekqnatct-v4.webp" alt="ReptileGames" class="allied-avatar">
+        <div class="allied-name">REPTILE GAMES</div>
+        <div class="allied-handle">@ReptileGames</div>
+        <div class="allied-tag">GameJolt ↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ NEWS FULL ═══ -->
 <section id="news-full">
   <div class="container">
@@ -1468,6 +1550,7 @@ body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 6px var(--
           <li><a onclick="goTo('games-full')" data-i18n="nav_games">Juegos</a></li>
           <li><a onclick="goTo('about-full')" data-i18n="nav_about">Nosotros</a></li>
           <li><a onclick="goTo('team')" data-i18n="nav_team">Equipo</a></li>
+          <li><a onclick="goTo('allied-studios')" data-i18n="nav_allied">Aliados</a></li>
           <li><a onclick="goTo('news-full')" data-i18n="nav_blog">Blog</a></li>
           <li><a onclick="goTo('contact')" data-i18n="nav_contact">Contacto</a></li>
           <li><a onclick="goTo('support')" data-i18n="nav_support">Apoyanos</a></li>
@@ -1557,7 +1640,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.9';
+const VERSION = 'v4.11';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
@@ -1629,6 +1712,10 @@ document.getElementById('exit-popup').addEventListener('click', function(e) {
 const T = {
   es:{
     nav_home:'Inicio',nav_games:'Juegos',nav_about:'Nosotros',nav_team:'Equipo',
+    nav_allied:'Aliados',
+    lbl_allied:'ESTUDIOS ALIADOS',
+    sec_allied:'NUESTRA<br><span>RED DE ALIADOS</span>',
+    allied_desc:'Estudios y creadores con los que RabGamesStudio™ comparte visión, colabora o mantiene vínculos dentro de la escena indie.',
     nav_blog:'Blog',nav_contact:'Contacto',nav_support:'Apoyanos',
     hero_eyebrow:'ESTUDIO DE VIDEOJUEGOS INDIE',
     hero_l1:'BIENVENIDO A',hero_l2:'RABGAMES',hero_l3:'STUDIO™',
@@ -1750,6 +1837,10 @@ const T = {
   },
   en:{
     nav_home:'Home',nav_games:'Games',nav_about:'About',nav_team:'Team',
+    nav_allied:'Allies',
+    lbl_allied:'ALLIED STUDIOS',
+    sec_allied:'OUR<br><span>ALLY NETWORK</span>',
+    allied_desc:'Studios and creators with whom RabGamesStudio™ shares vision, collaborates or maintains ties within the indie scene.',
     nav_blog:'Blog',nav_contact:'Contact',nav_support:'Support Us',
     hero_eyebrow:'INDIE GAME STUDIO',
     hero_l1:'WELCOME TO',hero_l2:'RABGAMES',hero_l3:'STUDIO™',
