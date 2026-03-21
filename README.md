@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.12`  
+> **Versión del archivo:** `rabgamesstudio_v4.13`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -145,7 +145,19 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.9** | 21 mar 2026 | Versión centralizada en constante JS `VERSION` — cambia un número y el footer se actualiza automáticamente. El footer siempre mostrará la versión correcta en todas las entregas futuras |
 | **v4.10** | 21 mar 2026 | Optimización móvil completa — 5 issues detectados y corregidos: hero buttons apilados, donation buttons apilados, footer centrado, team grid a 1 columna en 480px, status-bar en columna en 480px |
 | **v4.11** | 21 mar 2026 | Sección de Estudios Aliados añadida (Rewite Pictures, ZAYgt, Nightmare Labs, Reptile Games), bilingüe ES/EN, enlace en nav y footer, grid 4→2→2 cols según pantalla. Bug crítico corregido: CSS del sitio destruido por reemplazo fallido — reconstruido desde base v4.10 |
-| **v4.12** | 21 mar 2026 | Breakpoint 430px añadido — optimizado específicamente para resolución 1080×2400px (Android moderno, ~393px CSS viewport). Ajustes en header, hero, secciones, tarjetas, equipo, aliados, modals, formularios y widget de GameJolt |
+| **v4.12** | 21 mar 2026 | Breakpoint 430px añadido — optimizado específicamente para resolución 1080×2400px (Android moderno, ~393px CSS viewport) |
+| **v4.13** | 21 mar 2026 | CRT rediseñado como overlay completo (scanlines + viñeta + flicker), cursor rediseñado como punto rosa simple con `z-index:999999` siempre visible, imágenes con `max-width:100%` para evitar desbordamiento en móvil |
+
+### 🔧 Parcheos detallados v4.13
+
+| # | Cambio | Detalle |
+|---|---|---|
+| 1 | Cursor → punto simple | `#cursor-dot` 8px rosa, siempre en `z-index:999999`, no usa lerp — sigue exactamente al mouse sin retraso. Hover: escala 1.6x morado. Click: comprime |
+| 2 | Cursor siempre visible | `z-index:999999` — por encima de CRT overlay, popups y todo. El CRT ya no lo tapa |
+| 3 | CRT rediseñado | `::before` scanlines horizontales en toda la página, `::after` viñeta oscura radial, `animation:crt-flicker` micro-variación de brillo. Switch ON/OFF sigue igual |
+| 4 | Imágenes móvil | `img { max-width:100%; height:auto; }` — fix para His Destiny y otros que se desbordaban en pantallas pequeñas |
+| 5 | selectLang | Muestra el cursor dot al cerrar el popup de idioma |
+| 6 | toggleCRT | Refuerza `z-index:999999` en el dot cada vez que se activa el CRT |
 
 ### 🔧 Parcheos detallados v4.12
 
@@ -774,7 +786,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.12 pesa **529 KB** — breakpoint 430px optimizado para 1080×2400px (Xata Jr's phone 😄).
+- La v4.13 pesa **529 KB** — CRT rediseñado, cursor punto rosa, imágenes móvil corregidas.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
