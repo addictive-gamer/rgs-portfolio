@@ -48,6 +48,7 @@ body.crt-on{filter:contrast(1.04) brightness(0.97) saturate(1.1);}
   display: none; position: fixed; inset: 0; z-index: 9997;
   background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
   align-items: center; justify-content: center; padding: 20px;
+  cursor: auto !important;
 }
 #exit-popup.show { display: flex; animation: fadeIn .2s ease; }
 .exit-box {
@@ -82,12 +83,22 @@ body.crt-on{filter:contrast(1.04) brightness(0.97) saturate(1.1);}
 }
 .exit-btn-no:hover { border-color: var(--purple); color: var(--purple); }
 
+
+/* ── CURSOR RESTORE IN POPUPS ── */
+#lang-popup, #lang-popup *,
+#exit-popup, #exit-popup *,
+#gameModal, #gameModal *,
+#legalModal, #legalModal * {
+  cursor: auto !important;
+}
+
 /* ── LANG POPUP ── */
 #lang-popup{
   position:fixed;inset:0;z-index:9998;
   background:rgba(0,0,0,0.92);backdrop-filter:blur(16px);
   display:flex;align-items:center;justify-content:center;
   animation:fadeIn .3s ease;
+  cursor: auto !important;
 }
 .lp-box{
   background:var(--bg-card);border:1px solid var(--purple);
@@ -108,11 +119,9 @@ body.crt-on{filter:contrast(1.04) brightness(0.97) saturate(1.1);}
 .lp-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
 .lp-btn{
   font-family:var(--fp);font-size:9px;padding:16px 28px;
-  border:1px solid;cursor:pointer !important;transition:all .15s;letter-spacing:1px;
+  border:1px solid;cursor:pointer;transition:all .15s;letter-spacing:1px;
   background:transparent;display:flex;flex-direction:column;align-items:center;gap:8px;
 }
-#lang-popup, #lang-popup * { cursor: default !important; }
-.lp-btn, .lp-btn * { cursor: pointer !important; }
 .lp-btn-flag{font-size:22px;}
 .lp-btn-es{border-color:var(--pink);color:var(--pink);}
 .lp-btn-es:hover{background:rgba(255,45,120,0.12);box-shadow:0 0 20px var(--pink-glow);}
@@ -399,7 +408,7 @@ section{padding:100px 0 80px;}
 .faq-item.open .faq-a{max-height:300px;}
 
 /* ── LEGAL MODAL ── */
-#legalModal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:80px 20px 20px;overflow-y:auto;}
+#legalModal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:80px 20px 20px;overflow-y:auto;cursor:auto !important;}
 .legal-inner{background:var(--bg-card);border:1px solid var(--purple);max-width:760px;width:100%;padding:36px;box-shadow:0 0 60px var(--purple-glow);position:relative;}
 .legal-inner h2{font-family:var(--fp);font-size:11px;color:var(--white);margin-bottom:20px;line-height:1.7;}
 .legal-inner h3{font-family:var(--fp);font-size:8px;color:var(--purple);margin:18px 0 8px;line-height:1.7;}
@@ -410,7 +419,7 @@ section{padding:100px 0 80px;}
 .legal-close:hover{border-color:var(--pink);color:var(--pink);}
 
 /* ── GAME MODAL ── */
-#gameModal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+#gameModal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;cursor:auto !important;}
 .modal-inner{background:var(--bg-card);border:1px solid var(--pink);max-width:720px;width:100%;padding:36px;box-shadow:0 0 70px var(--pink-glow);position:relative;max-height:90vh;overflow-y:auto;}
 .modal-close{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--fp);font-size:7px;padding:6px 10px;cursor:pointer;transition:all .15s;}
 .modal-close:hover{border-color:var(--pink);color:var(--pink);}
@@ -1258,7 +1267,7 @@ body.crt-on #cursor-inner { background: var(--green); box-shadow: 0 0 6px var(--
       <span style="font-family:var(--fm);font-size:9px;color:var(--muted2);">
         Desarrollado con
         <a href="https://claude.ai" target="_blank" style="color:var(--pink);text-decoration:none;transition:color .15s;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--pink)'">Claude (Anthropic)</a>
-        · <span style="color:var(--muted2);">v4.4.1</span>
+        · <span style="color:var(--muted2);">v4.5</span>
       </span>
     </div>
   </div>
