@@ -787,7 +787,8 @@ img { max-width: 100%; height: auto; }
   width: 20px; height: 20px;
   transform: translate(-50%, -50%);
   transition: opacity .3s ease, transform .08s ease;
-  top: 0; left: 0;
+  top: -100px; left: -100px;
+  opacity: 0;
 }
 /* Punto central */
 #cursor-dot::before {
@@ -1940,7 +1941,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.23';
+const VERSION = 'v4.24';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
@@ -1988,10 +1989,20 @@ document.getElementById('exit-cancel').onclick = exitClose;
   const dot = document.getElementById('cursor-dot');
   if(!dot) return;
 
-  // Direct position — no lerp, always on top, always visible
+  // Direct position — show only after first mousemove to avoid top-left flash
+  let firstMove = false;
   document.addEventListener('mousemove', e => {
     dot.style.left = e.clientX + 'px';
     dot.style.top  = e.clientY + 'px';
+    if (!firstMove) {
+      firstMove = true;
+      // Only show if no popup is open and cursor is enabled
+      if (!document.body.classList.contains('popup-open') &&
+          !document.body.classList.contains('cursor-off') &&
+          !crtOn) {
+        dot.style.opacity = '1';
+      }
+    }
   });
   // El lang-popup arranca visible — ocultar cursor hasta que el usuario elija idioma
   dot.style.opacity = '0';
