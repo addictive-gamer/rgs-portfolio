@@ -1940,7 +1940,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.22';
+const VERSION = 'v4.23';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
@@ -2009,9 +2009,6 @@ document.getElementById('exit-cancel').onclick = exitClose;
   // Hide/show on window leave/enter
   document.addEventListener('mouseleave', () => dot.style.opacity = '0');
   document.addEventListener('mouseenter', () => dot.style.opacity = '1');
-
-  // Show cursor after lang popup closes
-  dot.style.opacity = '0';
 })();
 
 // ── TRANSLATIONS ──
@@ -2522,7 +2519,7 @@ function updateCharCounter(el, max) {
   }
 }
 
-const WORKER_URL = 'https://xata-portfolio-bot.addictivegamer.workers.dev/';
+const WORKER_URL = 'https://xata-portfolio-bot.addictivegamer.workers.dev';
 async function submitForm() {
   const name   = document.getElementById('f_name').value.trim();
   const email  = document.getElementById('f_email').value.trim();
