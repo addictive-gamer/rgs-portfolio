@@ -789,6 +789,90 @@ body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !impor
 .allied-name { font-family: var(--fp); font-size: 7px; color: var(--white); margin-bottom: 6px; line-height: 1.7; }
 .allied-handle { font-family: var(--fm); font-size: 9px; color: var(--blue); letter-spacing: 1px; margin-bottom: 8px; }
 .allied-tag { font-family: var(--fm); font-size: 8px; color: var(--muted2); }
+
+/* ── SENSITIVE INFO FIELD ── */
+.sensitive-field {
+  background: rgba(255,230,0,0.04);
+  border: 1px solid rgba(255,230,0,0.25);
+  border-radius: 0;
+  padding: 14px 16px 12px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.sensitive-field::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--yellow), transparent);
+  opacity: .5;
+}
+.sensitive-label {
+  font-family: var(--fp);
+  font-size: 7px;
+  color: var(--yellow);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sensitive-disclaimer {
+  font-family: var(--fm);
+  font-size: 9px;
+  color: var(--muted2);
+  line-height: 1.7;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: rgba(255,230,0,0.03);
+  border-left: 2px solid rgba(255,230,0,0.3);
+}
+.sensitive-disclaimer strong { color: var(--yellow); }
+.form-textarea.sensitive-textarea {
+  border-color: rgba(255,230,0,0.2);
+  background: rgba(255,230,0,0.02);
+}
+.form-textarea.sensitive-textarea:focus {
+  border-color: rgba(255,230,0,0.5);
+  box-shadow: 0 0 0 2px rgba(255,230,0,0.07);
+}
+
+/* ── CHARACTER COUNTER ── */
+.field-counter-wrap {
+  position: relative;
+}
+.char-counter {
+  display: block;
+  text-align: right;
+  font-family: var(--fm);
+  font-size: 8px;
+  color: var(--muted2);
+  margin-top: 4px;
+  letter-spacing: 1px;
+  transition: color .2s, font-size .15s, transform .15s;
+  user-select: none;
+}
+.char-counter.warn   { color: var(--yellow); font-size: 9px; }
+.char-counter.danger { color: #ff9500;       font-size: 9px; }
+.char-counter.over   { color: var(--pink);   font-size: 9px; font-weight: 700; }
+.char-counter.warn   { animation: counter-pulse .4s ease; }
+.char-counter.danger { animation: counter-pulse .3s ease; }
+.char-counter.over   { animation: counter-shake .25s ease; }
+@keyframes counter-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+@keyframes counter-shake {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-3px); }
+  75%      { transform: translateX(3px); }
+}
+.form-input.field-over,
+.form-textarea.field-over {
+  border-color: var(--pink) !important;
+  box-shadow: 0 0 0 2px rgba(255,45,120,0.12) !important;
+}
 </style>
 </head>
 <body>
@@ -1588,13 +1672,13 @@ body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !impor
     <div class="contact-grid">
       <div>
         <input type="hidden" id="f_source" name="source" value="rab">
-        <div class="form-group"><label class="form-label" data-i18n="form_name">// NOMBRE</label><input class="form-input" id="f_name" name="name" type="text" data-i18n-ph="form_ph_name" placeholder="Tu nombre..."></div>
-        <div class="form-group"><label class="form-label" data-i18n="form_email">// CORREO</label><input class="form-input" id="f_email" name="email" type="email" data-i18n-ph="form_ph_email" placeholder="tu@correo.com"></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_name">// NOMBRE</label><div class="field-counter-wrap"><input class="form-input" id="f_name" name="name" type="text" maxlength="80" data-i18n-ph="form_ph_name" placeholder="Tu nombre..." oninput="updateCharCounter(this,80)"><span class="char-counter" id="f_name_counter">80</span></div></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_email">// CORREO</label><div class="field-counter-wrap"><input class="form-input" id="f_email" name="email" type="email" maxlength="254" data-i18n-ph="form_ph_email" placeholder="tu@correo.com" oninput="updateCharCounter(this,254)"><span class="char-counter" id="f_email_counter">254</span></div></div>
         <div class="form-group">
           <label class="form-label" data-i18n="form_social">// NICK / USUARIO <span style="color:var(--muted);font-family:var(--fm);font-size:9px;">(opcional)</span></label>
-          <input class="form-input" id="f_social" name="social" type="text"
+          <div class="field-counter-wrap"><input class="form-input" id="f_social" name="social" type="text" maxlength="60"
             data-i18n-ph="form_ph_social" placeholder="@tuusuario"
-            oninput="updateSocialPlatformVisibility()">
+            oninput="updateSocialPlatformVisibility();updateCharCounter(this,60)"><span class="char-counter" id="f_social_counter">60</span></div>
         </div>
         <div class="form-group" id="f_platform_row" style="display:none;">
           <label class="form-label" data-i18n="form_platform">// ¿EN QUÉ RED? <span style="color:#ff2d78">*</span></label>
@@ -1622,8 +1706,18 @@ body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !impor
             <option data-i18n="form_opt5">Contratar servicios de desarrollo</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label" data-i18n="form_msg">// MENSAJE</label><textarea class="form-textarea" id="f_msg" name="message" data-i18n-ph="form_ph_msg" placeholder="Escribe tu mensaje..."></textarea></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_msg">// MENSAJE</label><div class="field-counter-wrap"><textarea class="form-textarea" id="f_msg" name="message" maxlength="2000" data-i18n-ph="form_ph_msg" placeholder="Escribe tu mensaje..." oninput="updateCharCounter(this,2000)"></textarea><span class="char-counter" id="f_msg_counter">2000</span></div></div>
         <div class="form-group"><label class="form-label" data-i18n="form_attach">// ADJUNTOS (opcional)</label><input class="form-input" id="f_attach" type="file" name="attachment" accept="image/*" multiple style="padding:8px 13px;cursor:pointer;"></div>
+        <div class="form-group sensitive-field" id="f_sensitive_row">
+          <div class="sensitive-label">
+            <svg width="10" height="10" viewBox="0 0 20 20" fill="var(--yellow)"><path d="M10 2a5 5 0 0 0-5 5v1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1V7a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v1H7V7a3 3 0 0 1 3-3zm0 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+            <span data-i18n="form_sensitive_label">// INFORMACIÓN SENSIBLE</span>
+            <span style="color:var(--muted);font-family:var(--fm);font-size:9px;" data-i18n="form_sensitive_opt">(opcional)</span>
+          </div>
+          <div class="sensitive-disclaimer" data-i18n="form_sensitive_disclaimer"><strong>⚠ AVISO DE PRIVACIDAD:</strong> Esta sección es para información confidencial (claves, datos personales, detalles privados). El contenido se enviará como <strong>spoiler oculto</strong> y será manejado con discreción. Solo lo verán los destinatarios autorizados al hacer click para revelar.</div>
+          <div class="field-counter-wrap"><textarea class="form-textarea sensitive-textarea" id="f_sensitive" name="sensitiveInfo" rows="3" maxlength="500"
+            placeholder="Información que prefieres mantener privada..." oninput="updateCharCounter(this,500)"></textarea><span class="char-counter" id="f_sensitive_counter">500</span></div>
+        </div>
         <button class="btn btn-primary" id="submitBtn" onclick="submitForm()" data-i18n="btn_send">ENVIAR MENSAJE ▶</button>
         <div class="form-status" id="formStatus"></div>
         <div style="font-family:var(--fm);font-size:9px;color:var(--muted2);margin-top:10px;" data-i18n="form_note">* Los mensajes se reciben en nuestro correo oficial.</div>
@@ -1774,7 +1868,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.17';
+const VERSION = 'v4.19';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
@@ -1941,6 +2035,9 @@ const T = {
     form_opt0:'Seleccionar...',form_opt1:'Consulta general',form_opt2:'Prensa / Media',
     form_opt3:'Colaboración',form_opt4:'Soporte técnico / Bug report',form_opt5:'Contratar servicios de desarrollo',
     btn_send:'ENVIAR MENSAJE ▶',form_note:'* Los mensajes se reciben en nuestro correo oficial.',
+    form_sensitive_label:'// INFORMACIÓN SENSIBLE',
+    form_sensitive_opt:'(opcional)',
+    form_sensitive_disclaimer:'<strong>⚠ AVISO DE PRIVACIDAD:</strong> Esta sección es para información confidencial (claves, datos personales, detalles privados). El contenido se enviará como <strong>spoiler oculto</strong> y será manejado con discreción. Solo lo verán los destinatarios autorizados al hacer click para revelar.',
     notif_sent:'MENSAJE ENVIADO — GRACIAS ♥',notif_blog:'BLOG COMPLETO — PRÓXIMAMENTE',
     discord_notif:'DISCORD — PRÓXIMAMENTE',
     coming_soon_label:'Próximamente',
@@ -2067,6 +2164,9 @@ const T = {
     form_opt0:'Select...',form_opt1:'General inquiry',form_opt2:'Press / Media',
     form_opt3:'Collaboration',form_opt4:'Technical support / Bug report',form_opt5:'Hire development services',
     btn_send:'SEND MESSAGE ▶',form_note:'* Messages are received at our official email.',
+    form_sensitive_label:'// SENSITIVE INFORMATION',
+    form_sensitive_opt:'(optional)',
+    form_sensitive_disclaimer:'<strong>⚠ PRIVACY NOTICE:</strong> This section is for confidential information (passwords, personal data, private details). Content will be sent as a <strong>hidden spoiler</strong> and handled with discretion. Only authorized recipients can reveal it by clicking.',
     notif_sent:'MESSAGE SENT — THANK YOU ♥',notif_blog:'FULL BLOG — COMING SOON',
     discord_notif:'DISCORD — COMING SOON',
     coming_soon_label:'Coming soon',
@@ -2295,6 +2395,32 @@ function updateSocialPlatformVisibility() {
     document.getElementById('f_platform').value = '';
   }
 }
+// ── CHARACTER COUNTER ──
+function updateCharCounter(el, max) {
+  const len  = el.value.length;
+  const left = max - len;
+  const id   = el.id + '_counter';
+  const span = document.getElementById(id);
+  if (!span) return;
+
+  span.textContent = left + ' / ' + max;
+
+  // Remove all state classes first
+  span.classList.remove('warn','danger','over');
+  el.classList.remove('field-over');
+
+  if (left <= 0) {
+    span.classList.add('over');
+    el.classList.add('field-over');
+  } else if (left <= 10) {
+    span.classList.add('danger');
+  } else if (left <= 20) {
+    span.classList.add('danger');
+  } else if (left <= 50) {
+    span.classList.add('warn');
+  }
+}
+
 const WORKER_URL = 'https://xata-portfolio-bot.addictivegamer.workers.dev/';
 async function submitForm() {
   const name   = document.getElementById('f_name').value.trim();
@@ -2309,6 +2435,17 @@ async function submitForm() {
     status.style.display='block'; status.className='form-status err';
     status.textContent='[ '+(lang==='es'?'Por favor completa todos los campos':'Please fill all required fields')+' ]';
     return;
+  }
+  // Validar límites de caracteres
+  const limits = { f_name:80, f_email:254, f_social:60, f_msg:2000, f_sensitive:500 };
+  for (const [id, max] of Object.entries(limits)) {
+    const el = document.getElementById(id);
+    if (el && el.value.length > max) {
+      status.style.display='block'; status.className='form-status err';
+      status.textContent='[ '+(lang==='es'?`El campo "${id.replace('f_','')}" supera el máximo de ${max} caracteres`:`Field "${id.replace('f_','')}" exceeds the ${max} character limit`)+' ]';
+      el.focus();
+      return;
+    }
   }
   // Validar que si pusieron nick, hayan seleccionado plataforma
   if(social !== '' && platform === '') {
@@ -2331,6 +2468,8 @@ async function submitForm() {
     fd.append('socialPlatform', platform);
     fd.append('reason',         type);
     fd.append('message',        msg);
+    const sensitive = document.getElementById('f_sensitive').value.trim();
+    if (sensitive) fd.append('sensitiveInfo', sensitive);
     const files = document.getElementById('f_attach').files;
     for(const f of files) fd.append('attachment', f);
 
@@ -2347,6 +2486,15 @@ async function submitForm() {
       document.getElementById('f_type').value='';
       document.getElementById('f_msg').value='';
       document.getElementById('f_attach').value='';
+      document.getElementById('f_sensitive').value='';
+      // Reset all counters
+      ['f_name','f_email','f_social','f_msg','f_sensitive'].forEach(id => {
+        const el = document.getElementById(id);
+        const sp = document.getElementById(id+'_counter');
+        const maxMap = {f_name:80,f_email:254,f_social:60,f_msg:2000,f_sensitive:500};
+        if(el) { el.classList.remove('field-over'); }
+        if(sp) { sp.textContent = maxMap[id]; sp.className = 'char-counter'; }
+      });
     } else {
       status.className='form-status err';
       status.textContent='[ '+(lang==='es'?'Error al enviar. Intenta de nuevo.':'Failed to send. Please try again.')+' ]';
