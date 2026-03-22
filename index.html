@@ -231,15 +231,28 @@ body.crt-on::after {
 #gameModal, #gameModal *,
 #legalModal, #legalModal * {
   cursor: auto !important;
+  pointer-events: auto !important;
+}
+/* Extra specificity fix for lang popup buttons */
+#lang-popup .lp-btn,
+#lang-popup .lp-btn *,
+#lang-popup button,
+#lang-popup button * {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(255,45,120,0.2);
 }
 
 /* ── LANG POPUP ── */
 #lang-popup{
-  position:fixed;inset:0;z-index:9998;
+  position:fixed;inset:0;z-index:99999;
   background:rgba(0,0,0,0.92);backdrop-filter:blur(16px);
   display:flex;align-items:center;justify-content:center;
   animation:fadeIn .3s ease;
   cursor: auto !important;
+  pointer-events: all !important;
 }
 .lp-box{
   background:var(--bg-card);border:1px solid var(--purple);
@@ -1761,7 +1774,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.14';
+const VERSION = 'v4.17';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
@@ -2137,7 +2150,10 @@ document.addEventListener('mousemove', e => { blob.style.left=e.clientX+'px'; bl
 
 // ── LANGUAGE SYSTEM ──
 function selectLang(v) {
-  document.getElementById('lang-popup').style.display = 'none';
+  const popup = document.getElementById('lang-popup');
+  popup.style.display = 'none';
+  popup.style.pointerEvents = 'none';
+  popup.style.visibility = 'hidden';
   applyLang(v);
   // Show cursor dot after lang popup closes
   const dot = document.getElementById('cursor-dot');
@@ -2357,7 +2373,7 @@ function interceptLinks() {
 interceptLinks();
 
 // ── FOOTER VERSION ──
-document.getElementById('footer-version').textContent = 'v4.15';
+document.getElementById('footer-version').textContent = VERSION;
 
 // ── CURSOR ──
 const cursorDot = document.getElementById('cursor-dot');
