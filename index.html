@@ -766,6 +766,8 @@ body.cursor-click #cursor-dot {
 /* CRT mode — fade out custom cursor, restore system cursor */
 body.crt-on #cursor-dot { opacity: 0 !important; transition: opacity .4s ease; }
 body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !important; }
+/* Cursor oculto cuando hay cualquier popup abierto */
+body.popup-open #cursor-dot { opacity: 0 !important; transition: opacity .15s ease; }
 /* Always visible — even inside popups/modals */
 #lang-popup *, #exit-popup *, #gameModal *, #legalModal * { cursor: auto !important; }
 #lang-popup, #exit-popup, #gameModal, #legalModal { cursor: auto !important; }
@@ -1706,7 +1708,7 @@ body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !impor
             <option data-i18n="form_opt5">Contratar servicios de desarrollo</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label" data-i18n="form_msg">// MENSAJE</label><div class="field-counter-wrap"><textarea class="form-textarea" id="f_msg" name="message" maxlength="2000" data-i18n-ph="form_ph_msg" placeholder="Escribe tu mensaje..." oninput="updateCharCounter(this,2000)"></textarea><span class="char-counter" id="f_msg_counter">2000</span></div></div>
+        <div class="form-group"><label class="form-label" data-i18n="form_msg">// MENSAJE</label><div class="field-counter-wrap"><textarea class="form-textarea" id="f_msg" name="message" maxlength="1000" data-i18n-ph="form_ph_msg" placeholder="Escribe tu mensaje..." oninput="updateCharCounter(this,1000)"></textarea><span class="char-counter" id="f_msg_counter">1000</span></div></div>
         <div class="form-group"><label class="form-label" data-i18n="form_attach">// ADJUNTOS (opcional)</label><input class="form-input" id="f_attach" type="file" name="attachment" accept="image/*" multiple style="padding:8px 13px;cursor:pointer;"></div>
         <div class="form-group sensitive-field" id="f_sensitive_row">
           <div class="sensitive-label">
@@ -1868,13 +1870,14 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.19';
+const VERSION = 'v4.20';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
 function exitClose() {
   document.getElementById('exit-popup').classList.remove('show');
   exitTarget = '';
+  setPopupCursor(false);
 }
 function exitConfirm() {
   if(exitTarget) window.open(exitTarget, '_blank');
@@ -1893,6 +1896,7 @@ function interceptLinks() {
         document.getElementById('exit-url').textContent = href;
         document.getElementById('exit-yes').textContent = (t.exit_yes || 'SÍ, IR') + ' ↗';
         document.getElementById('exit-popup').classList.add('show');
+        setPopupCursor(true);
       });
     }
   });
@@ -1900,6 +1904,8 @@ function interceptLinks() {
 document.getElementById('exit-popup').addEventListener('click', function(e) {
   if(e.target === this) exitClose();
 });
+document.getElementById('exit-yes').onclick    = exitConfirm;
+document.getElementById('exit-cancel').onclick = exitClose;
 
 // ── CUSTOM CURSOR ──
 (function() {
@@ -1917,6 +1923,9 @@ document.getElementById('exit-popup').addEventListener('click', function(e) {
     dot.style.left = e.clientX + 'px';
     dot.style.top  = e.clientY + 'px';
   });
+  // El lang-popup arranca visible — ocultar cursor hasta que el usuario elija idioma
+  dot.style.opacity = '0';
+  document.body.classList.add('popup-open');
 
   // Hover effect on interactive elements
   const sel = 'a,button,.btn,.game-card,.game-full-card,.news-feature,.news-mini,.faq-q,.slider-arrow,.dot,.socials-list li,.embed-placeholder,.team-card,.allied-card,.lp-btn,.lang-toggle,.hamburger,.nav-logo,.gj-game-row';
@@ -2255,9 +2264,7 @@ function selectLang(v) {
   popup.style.pointerEvents = 'none';
   popup.style.visibility = 'hidden';
   applyLang(v);
-  // Show cursor dot after lang popup closes
-  const dot = document.getElementById('cursor-dot');
-  if(dot) dot.style.opacity = '1';
+  setPopupCursor(false);
 }
 function toggleLang() {
   applyLang(lang === 'es' ? 'en' : 'es');
@@ -2337,6 +2344,30 @@ function showNotif(msg) {
   clearTimeout(nT); nT=setTimeout(()=>el.classList.remove('show'),3000);
 }
 
+// ── POPUP CURSOR HELPER ──
+// Oculta el cursor personalizado cuando hay un popup abierto,
+// y lo restaura cuando todos los popups están cerrados.
+// Se llama desde cada open/close de popup.
+function setPopupCursor(open) {
+  const dot = document.getElementById('cursor-dot');
+  if (open) {
+    document.body.classList.add('popup-open');
+    if (dot && !crtOn) dot.style.opacity = '0';
+  } else {
+    // Solo restaurar si no hay ningún otro popup visible
+    const anyOpen =
+      document.getElementById('lang-popup').style.visibility !== 'hidden' &&
+      document.getElementById('lang-popup').style.display !== 'none' ||
+      document.getElementById('exit-popup').classList.contains('show') ||
+      document.getElementById('gameModal').style.display === 'flex' ||
+      document.getElementById('legalModal').style.display === 'flex';
+    if (!anyOpen) {
+      document.body.classList.remove('popup-open');
+      if (dot && !crtOn) dot.style.opacity = '1';
+    }
+  }
+}
+
 // ── LINK ──
 function openLink(url) {
   exitTarget = url;
@@ -2345,6 +2376,7 @@ function openLink(url) {
   document.getElementById('exit-url').textContent = url;
   document.getElementById('exit-yes').textContent = (t.exit_yes || 'SÍ, IR') + ' ↗';
   document.getElementById('exit-popup').classList.add('show');
+  setPopupCursor(true);
 }
 
 // ── GAME MODAL ──
@@ -2371,8 +2403,9 @@ function openModal(id) {
     </div>
     <a class="btn btn-primary" href="${g.link}" target="_blank" style="margin-top:8px;">GAMEJOLT ↗</a>`;
   document.getElementById('gameModal').style.display='flex';
+  setPopupCursor(true);
 }
-function closeModal() { document.getElementById('gameModal').style.display='none'; }
+function closeModal() { document.getElementById('gameModal').style.display='none'; setPopupCursor(false); }
 document.getElementById('gameModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
 // ── LEGAL MODAL ──
@@ -2380,8 +2413,9 @@ function openLegal(type) {
   const content = LEGAL[type][lang];
   document.getElementById('legalContent').innerHTML = content;
   document.getElementById('legalModal').style.display='flex';
+  setPopupCursor(true);
 }
-function closeLegal() { document.getElementById('legalModal').style.display='none'; }
+function closeLegal() { document.getElementById('legalModal').style.display='none'; setPopupCursor(false); }
 document.getElementById('legalModal').addEventListener('click',function(e){if(e.target===this)closeLegal();});
 
 // ── CONTACT FORM ──
@@ -2437,7 +2471,7 @@ async function submitForm() {
     return;
   }
   // Validar límites de caracteres
-  const limits = { f_name:80, f_email:254, f_social:60, f_msg:2000, f_sensitive:500 };
+  const limits = { f_name:80, f_email:254, f_social:60, f_msg:1000, f_sensitive:500 };
   for (const [id, max] of Object.entries(limits)) {
     const el = document.getElementById(id);
     if (el && el.value.length > max) {
@@ -2491,7 +2525,7 @@ async function submitForm() {
       ['f_name','f_email','f_social','f_msg','f_sensitive'].forEach(id => {
         const el = document.getElementById(id);
         const sp = document.getElementById(id+'_counter');
-        const maxMap = {f_name:80,f_email:254,f_social:60,f_msg:2000,f_sensitive:500};
+        const maxMap = {f_name:80,f_email:254,f_social:60,f_msg:1000,f_sensitive:500};
         if(el) { el.classList.remove('field-over'); }
         if(sp) { sp.textContent = maxMap[id]; sp.className = 'char-counter'; }
       });
@@ -2509,16 +2543,6 @@ async function submitForm() {
   }
 }
 
-// ── EXIT POPUP ──
-let exitTarget = '';
-function closeExit() { document.getElementById('exit-popup').classList.remove('show'); }
-function confirmExit() { window.open(exitTarget,'_blank'); closeExit(); }
-function interceptLinks() {
-  document.getElementById('exit-yes').onclick = confirmExit;
-  document.getElementById('exit-cancel').onclick = closeExit;
-  document.getElementById('exit-popup').addEventListener('click', function(e){ if(e.target===this) closeExit(); });
-}
-interceptLinks();
 
 // ── FOOTER VERSION ──
 document.getElementById('footer-version').textContent = VERSION;
