@@ -1,16 +1,16 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del sitio:** `v4.21`
+> **Versión del sitio:** `v4.22`
 > **Última actualización:** 21 de marzo de 2026
 > **Mantenido por:** RabGamesStudio™ — Xata Jr. (Admin Web)
 > **Contacto oficial:** rabbitgames0103@gmail.com
 > **Repositorio:** [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio)
 > **Portafolio en vivo:** [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/)
 
-![version](https://img.shields.io/badge/version-4.21-ff2d78?style=for-the-badge)
+![version](https://img.shields.io/badge/version-4.22-ff2d78?style=for-the-badge)
 ![host](https://img.shields.io/badge/Hosted_by-GitHub_Pages-black?style=for-the-badge&logo=github)
 ![lang](https://img.shields.io/badge/Bilingüe-ES%20%7C%20EN-b347ff?style=for-the-badge)
-![worker](https://img.shields.io/badge/Backend-Cloudflare_Worker_v4.0-orange?style=for-the-badge&logo=cloudflare)
+![worker](https://img.shields.io/badge/Backend-Cloudflare_Worker_v5.0-orange?style=for-the-badge&logo=cloudflare)
 ![mobile](https://img.shields.io/badge/Mobile-Optimizado-39ff14?style=for-the-badge)
 ![crt](https://img.shields.io/badge/Feature-CRT_Mode-00d4ff?style=for-the-badge)
 
@@ -117,9 +117,11 @@ Un **único archivo HTML autocontenido** (`index.html`). Sin servidor, sin base 
 - CSS puro: `body::before` (scanlines) + `body::after` (viñeta) + `animation: crt-flicker`
 - Al activar CRT: cursor personalizado hace fade-out — al desactivar: fade-in
 
-### 🖱️ Cursor Personalizado
-- Punto rosa 8px con `z-index: 999999`
-- Se oculta completamente en dispositivos touch (`@media (hover: none)` + detección JS)
+### 🖱️ Cursor Personalizado — Crosshair Neón
+- **Crosshair rosa neón** con punto central y 4 líneas, todo con `z-index: 999999`
+- Hover: escala 1.5x y cambia a morado · Click: comprime a 0.65x
+- **Switch `✛ ON/OFF`** en el header para activar/desactivar independientemente del CRT
+- Se oculta completamente en touch (`@media (hover: none)` + detección JS + clase `body.cursor-off`)
 - Se oculta mientras hay cualquier popup abierto (`body.popup-open`)
 - Se oculta con CRT activado
 
@@ -307,6 +309,7 @@ index.html
 | `toggleLang()` | Alterna ES ↔ EN |
 | `applyLang(v)` | Aplica `[data-i18n]` y `[data-i18n-ph]` |
 | `setPopupCursor(open)` | Oculta/restaura cursor al abrir/cerrar cualquier popup |
+| `toggleCustomCursor()` | Activa/desactiva el crosshair (switch `✛ ON/OFF` en header) |
 | `updateCharCounter(el, max)` | Contador con 4 estados de color + animaciones |
 | `updateSocialPlatformVisibility()` | Muestra/oculta `#f_platform_row` |
 | `submitForm()` | Valida límites + envía FormData al Worker |
@@ -360,6 +363,20 @@ index.html
 ---
 
 ## 📋 Historial de Versiones
+
+### v4.22 — Crosshair neón + switch de cursor (21 mar 2026)
+
+**➕ Añadido / Cambiado**
+- **Crosshair rosa neón** reemplaza el punto simple:
+  - Punto central 4px + 4 líneas de 7px usando `::before`/`::after` con `box-shadow` glow
+  - Hover: escala 1.5x + todo morado · Click: escala 0.65x
+  - CSS puro — un solo `div#cursor-dot`, sin elementos extra en el HTML
+- **Botón `✛ ON/OFF`** en el header (`#cursor-btn`) junto al CRT, mismo estilo visual
+  - Variable `cursorEnabled` · clase `body.cursor-off` restaura `cursor: auto`
+  - `setPopupCursor()` y `toggleCRT()` respetan el estado del switch
+- **Limpieza de código muerto** — eliminados `cursorRing`, `animRing()`, el segundo `mousemove` duplicado y la referencia a `#cursor-ring` (que nunca existió en el HTML de RGS)
+
+---
 
 ### v4.21 — Optimización móvil completa (21 mar 2026)
 
@@ -437,7 +454,7 @@ Ver historial completo en el repositorio.
 | Ilustración & Sprites | Xata Jr. (Addictive Gamer) |
 | Fuentes | Google Fonts (OFL) |
 | Emails | **Resend** |
-| Backend | **Cloudflare Worker v4.0** |
+| Backend | **Cloudflare Worker v5.0** |
 | Hosting | **GitHub Pages** |
 | Admin repo & web | **Xata Jr.** |
 
