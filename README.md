@@ -1,6 +1,6 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del archivo:** `rabgamesstudio_v4.14`  
+> **Versión del archivo:** `rabgamesstudio_v4.15`  
 > **Última actualización:** 21 de marzo de 2026  
 > **Mantenido por:** RabGamesStudio™  
 > **Contacto oficial:** rabbitgames0103@gmail.com  
@@ -137,6 +137,7 @@ El sitio web de RabGamesStudio está construido como un **único archivo HTML au
 | **v4.2** | 21 mar 2026 | Popup de salida al hacer click en links externos — muestra la URL destino, botón "Sí, ir ↗" abre en nueva pestaña, "Cancelar" cierra. Bilingüe ES/EN. No aplica a mailto ni anclas internas |
 | **v4.3** | 21 mar 2026 | Cursor crosshair bajado de `z-index:99999` a `2000` (estaba por encima de todos los modales y popups bloqueando interacciones), `openLink()` ahora pasa por el exit popup en vez de saltárselo |
 | **v4.4** | 21 mar 2026 | `async function submitForm()` restaurada — la función completa había desaparecido, dejando solo el bloque `try` flotando sin contexto y causando `SyntaxError: await is only valid in async functions`. Error secundario `selectLang is not defined` era consecuencia del SyntaxError que detenía todo el JS |
+| **v4.15** | 21 mar 2026 | **Formulario migrado de Formspree a Cloudflare Worker** (`xata-portfolio-bot.addictivegamer.workers.dev`). Envío cambiado de JSON a `FormData` con campo hidden `source=rab`. Nuevos campos: Red social / Nick (`f_social`, `name="social"`) y Adjuntos (`f_attach`, `name="attachment"`, `accept="image/*"`, múltiples archivos). `submitBtn` con `id` para feedback visual (deshabilitado durante envío). Claves i18n añadidas: `form_social`, `form_ph_social`, `form_attach` en ES y EN. Función `submitForm` reescrita completa — ya no dependía de Formspree. `footer-version` actualizado a v4.15. Archivo truncado (faltaban ~60 líneas del cierre) reconstruido con cierre correcto de `submitForm`, `interceptLinks`, cursor lerp y `</script></body></html>`. |
 | **v4.4.1** | 21 mar 2026 | Cursor oculto durante el popup de idioma (`opacity:0`) — aparece suavemente al seleccionar ES o EN. Antes el crosshair no se veía hasta después de elegir idioma |
 | **v4.5** | 21 mar 2026 | Cursor del sistema en popups, optimización móvil completa (768px + 480px), cursor JS desactivado en táctil |
 | **v4.6** | 21 mar 2026 | Widget de portafolio GameJolt en `#about-full` (primera versión — widget no se insertó correctamente en el body) |
@@ -706,7 +707,8 @@ Estas son las partes marcadas como `PRÓXIMAMENTE` o con placeholders en la v3 a
 | Foto de Xata Jr permanente | Tarjeta equipo — URL de Instagram expira | Subir imagen a GitHub Assets o Imgur y reemplazar la URL |
 | Sección de Merch | No implementada | Crear cuando el merch esté listo |
 | Página de Zero-State: LYXA | Tarjeta en `#games-full` | Agregar link cuando exista en GameJolt |
-| ~~Google Sheets~~ | ~~`SHEET_URL`~~ | ✅ **Migrado a Formspree** — mensajes llegan a rabbitgames0103@gmail.com |
+| ~~Formulario funcional~~ | ~~`#contact`~~ | ✅ **Conectado a Cloudflare Worker** (`xata-portfolio-bot.addictivegamer.workers.dev`) con `source=rab` — envía email + DM de Discord |
+| ~~Google Sheets~~ | ~~`SHEET_URL`~~ | ✅ **Migrado a Formspree** → ✅ **Migrado a Cloudflare Worker** |
 | ~~Idioma inglés~~ | ~~stub~~ | ✅ **Implementado** — 178+ elementos bilingües |
 | ~~Políticas legales~~ | ~~páginas separadas~~ | ✅ **Implementadas** — modales integrados en la web |
 
@@ -786,7 +788,7 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 | Fuente "Rajdhani" | Indian Type Foundry — Google Fonts (OFL) |
 | Imágenes CDN | GameJolt CDN · Wix CDN |
 | Iconos | SVGs inline personalizados (sin dependencias externas) |
-| Formulario | Google Apps Script → Google Sheets |
+| Formulario | Cloudflare Worker (`xata-portfolio-bot.addictivegamer.workers.dev`) — email + Discord DM |
 | Hosting | [GitHub Pages](https://pages.github.com) — gratuito y confiable |
 | Repositorio | [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio) |
 | Portafolio en vivo | [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/) |
@@ -796,22 +798,15 @@ Para un dominio personalizado: agrega un archivo `CNAME` con tu dominio y config
 
 ## 📝 Notas finales
 
-- La v4.14 pesa **529 KB** — fade cursor en CRT, sistema bilingüe, móvil optimizado.
+- La v4.15 pesa **~530 KB** — fade cursor en CRT, sistema bilingüe, móvil optimizado.
 - Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
 - El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
 - Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
-- El formulario de contacto está conectado a **Formspree** (`formspree.io/f/xojkzalj`) — los mensajes llegan directo a rabbitgames0103@gmail.com.
+- El formulario de contacto está conectado al **Cloudflare Worker** (`xata-portfolio-bot.addictivegamer.workers.dev`) — envía email vía Resend + DM de Discord con `source=rab`. Soporta adjuntos de imagen.
 - El cursor crosshair usa interpolación lineal (lerp) para el círculo exterior, dando un efecto de inercia suave.
 - El CRT effect es una característica de identidad de RabGamesStudio. No eliminar.
 - **Administrador del repositorio y sitio web:** Xata Jr (Addictive Gamer) — [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio)
 - ⚠️ **IMPORTANTE:** Al editar el archivo manualmente, NO borrar ni mover el bloque `</style></head><body>` — es lo que separa el CSS del contenido HTML. Si se rompe, la página se pone negra.
-- Las URLs de GameJolt CDN y Wix CDN son estables pero no están bajo control del estudio. Si el CDN cambia, actualiza las URLs.
-- El sistema de idiomas cubre **178+ elementos** — absolutamente todo el texto de la web cambia al alternar entre ES y EN.
-- Las políticas legales (privacidad, términos, reembolso, etc.) están integradas como modales — no requieren páginas separadas.
-- El formulario de contacto está conectado a Google Sheets vía Apps Script. Cada envío genera una fila con: fecha, nombre, email, tipo, mensaje e idioma.
-- El cursor personalizado usa interpolación lineal (lerp) para el círculo exterior, dando un efecto de inercia suave.
-- El CRT effect es una característica de identidad de RabGamesStudio. No eliminar.
-- **Administrador del repositorio y sitio web:** Xata Jr (Addictive Gamer) — [xata-jr-portfolio](https://github.com/addictive-gamer/xata-jr-portfolio)
 
 ---
 
