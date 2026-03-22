@@ -312,11 +312,13 @@ body.crt-on::after {
   cursor:pointer;transition:all .15s;letter-spacing:1px;display:flex;align-items:center;gap:5px;
 }
 .lang-toggle:hover{border-color:var(--blue);color:var(--blue);}
-#crt-btn{font-family:var(--fp);font-size:6px;background:var(--bg-card);
+#crt-btn,#cursor-btn{font-family:var(--fp);font-size:6px;background:var(--bg-card);
   border:1px solid var(--border);color:var(--muted);padding:6px 9px;
   cursor:pointer;transition:all .15s;letter-spacing:1px;}
 #crt-btn:hover{border-color:var(--green);color:var(--green);}
 #crt-btn.active{border-color:var(--green);color:var(--green);box-shadow:0 0 8px rgba(57,255,20,.4);}
+#cursor-btn:hover{border-color:var(--pink);color:var(--pink);}
+#cursor-btn.active{border-color:var(--pink);color:var(--pink);box-shadow:0 0 8px var(--pink-glow);}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
 .hamburger span{width:22px;height:2px;background:var(--white);transition:all .2s;}
 
@@ -676,7 +678,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   .nav-logo{font-size:6px;gap:6px;}
   .nav-logo img{width:22px;height:22px;}
   .lang-toggle{font-size:5px;padding:5px 7px;}
-  #crt-btn{font-size:5px;padding:5px 7px;}
+  #crt-btn,#cursor-btn{font-size:5px;padding:5px 7px;}
 
   /* Hero */
   .hero-title{font-size:11px;}
@@ -770,29 +772,65 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
 
 /* ── CUSTOM CURSOR ── */
 *, *::before, *::after { cursor: none !important; }
-/* Touch devices — disable custom cursor entirely */
+/* Touch / cursor-disabled — restore system cursor */
 @media (hover: none) {
   *, *::before, *::after { cursor: auto !important; }
   #cursor-dot { display: none !important; }
 }
+body.cursor-off *, body.cursor-off *::before, body.cursor-off *::after { cursor: auto !important; }
+body.cursor-off #cursor-dot { display: none !important; }
 img { max-width: 100%; height: auto; }
+
+/* ── CROSSHAIR ── */
 #cursor-dot {
   position: fixed; pointer-events: none; z-index: 999999;
-  width: 8px; height: 8px;
-  background: var(--pink);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--pink), 0 0 2px #fff;
+  width: 20px; height: 20px;
   transform: translate(-50%, -50%);
-  transition: background .15s, box-shadow .15s, transform .1s, opacity .4s ease;
+  transition: opacity .3s ease, transform .08s ease;
   top: 0; left: 0;
 }
-body.cursor-hover #cursor-dot {
-  background: var(--purple);
-  box-shadow: 0 0 12px var(--purple), 0 0 4px #fff;
-  transform: translate(-50%, -50%) scale(1.6);
+/* Punto central */
+#cursor-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px; height: 4px;
+  background: var(--pink);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--pink), 0 0 2px #fff;
+  transition: background .15s, box-shadow .15s, width .1s, height .1s;
 }
+/* Líneas del crosshair — eje horizontal + vertical */
+#cursor-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px; height: 20px;
+  background:
+    linear-gradient(var(--pink) 0%, var(--pink) 100%) center/1.5px 7px no-repeat,
+    linear-gradient(var(--pink) 0%, var(--pink) 100%) center/7px 1.5px no-repeat;
+  filter: drop-shadow(0 0 3px var(--pink));
+  transition: background .15s, filter .15s, transform .1s;
+}
+/* Hover — crosshair morado y más grande */
+body.cursor-hover #cursor-dot {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+body.cursor-hover #cursor-dot::before {
+  background: var(--purple);
+  box-shadow: 0 0 8px var(--purple), 0 0 2px #fff;
+}
+body.cursor-hover #cursor-dot::after {
+  background:
+    linear-gradient(var(--purple) 0%, var(--purple) 100%) center/1.5px 7px no-repeat,
+    linear-gradient(var(--purple) 0%, var(--purple) 100%) center/7px 1.5px no-repeat;
+  filter: drop-shadow(0 0 4px var(--purple));
+}
+/* Click — comprime */
 body.cursor-click #cursor-dot {
-  transform: translate(-50%, -50%) scale(0.7);
+  transform: translate(-50%, -50%) scale(0.65);
 }
 /* CRT mode — fade out custom cursor, restore system cursor */
 body.crt-on #cursor-dot { opacity: 0 !important; transition: opacity .4s ease; }
@@ -971,6 +1009,7 @@ body.popup-open #cursor-dot { opacity: 0 !important; transition: opacity .15s ea
       <span id="langLabel">ENG</span>
     </button>
     <button id="crt-btn" onclick="toggleCRT()">CRT: OFF</button>
+    <button id="cursor-btn" onclick="toggleCustomCursor()">✛ ON</button>
     <div class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </div>
@@ -1901,7 +1940,7 @@ const IMG = {
 };
 
 // ── VERSION ──
-const VERSION = 'v4.21';
+const VERSION = 'v4.22';
 
 // ── EXIT POPUP ──
 let exitTarget = '';
@@ -2344,11 +2383,9 @@ function toggleCRT() {
   btn.classList.toggle('active', crtOn);
   const dot = document.getElementById('cursor-dot');
   if(crtOn) {
-    // CRT ON — fade out custom dot, system cursor fades in via CSS
     if(dot) dot.style.opacity = '0';
   } else {
-    // CRT OFF — fade in custom dot, hide system cursor
-    if(dot) {
+    if(dot && cursorEnabled) {
       dot.style.opacity = '1';
       dot.style.zIndex = '999999';
     }
@@ -2383,9 +2420,8 @@ function setPopupCursor(open) {
   const dot = document.getElementById('cursor-dot');
   if (open) {
     document.body.classList.add('popup-open');
-    if (dot && !crtOn) dot.style.opacity = '0';
+    if (dot && !crtOn && cursorEnabled) dot.style.opacity = '0';
   } else {
-    // Solo restaurar si no hay ningún otro popup visible
     const anyOpen =
       document.getElementById('lang-popup').style.visibility !== 'hidden' &&
       document.getElementById('lang-popup').style.display !== 'none' ||
@@ -2394,7 +2430,7 @@ function setPopupCursor(open) {
       document.getElementById('legalModal').style.display === 'flex';
     if (!anyOpen) {
       document.body.classList.remove('popup-open');
-      if (dot && !crtOn) dot.style.opacity = '1';
+      if (dot && !crtOn && cursorEnabled) dot.style.opacity = '1';
     }
   }
 }
@@ -2578,20 +2614,23 @@ async function submitForm() {
 // ── FOOTER VERSION ──
 document.getElementById('footer-version').textContent = VERSION;
 
-// ── CURSOR ──
-const cursorDot = document.getElementById('cursor-dot');
-const cursorRing = document.getElementById('cursor-ring');
-let ringX=0,ringY=0,dotX=0,dotY=0;
-document.addEventListener('mousemove',e=>{
-  dotX=e.clientX; dotY=e.clientY;
-  if(cursorDot){ cursorDot.style.left=dotX+'px'; cursorDot.style.top=dotY+'px'; }
-});
-function animRing(){
-  ringX+=(dotX-ringX)*0.12; ringY+=(dotY-ringY)*0.12;
-  if(cursorRing){ cursorRing.style.left=ringX+'px'; cursorRing.style.top=ringY+'px'; }
-  requestAnimationFrame(animRing);
+// ── CURSOR SWITCH ──
+let cursorEnabled = true;
+function toggleCustomCursor() {
+  cursorEnabled = !cursorEnabled;
+  const btn = document.getElementById('cursor-btn');
+  if (!cursorEnabled) {
+    document.body.classList.add('cursor-off');
+    btn.textContent = '✛ OFF';
+    btn.classList.remove('active');
+  } else {
+    document.body.classList.remove('cursor-off');
+    btn.textContent = '✛ ON';
+    btn.classList.add('active');
+  }
 }
-animRing();
+// Marcar botón como activo al cargar (cursor ON por defecto)
+document.getElementById('cursor-btn').classList.add('active');
 </script>
 </body>
 </html>
