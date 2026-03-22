@@ -1,13 +1,13 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del sitio:** `v4.22`
+> **Versión del sitio:** `v4.23`
 > **Última actualización:** 21 de marzo de 2026
 > **Mantenido por:** RabGamesStudio™ — Xata Jr. (Admin Web)
 > **Contacto oficial:** rabbitgames0103@gmail.com
 > **Repositorio:** [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio)
 > **Portafolio en vivo:** [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/)
 
-![version](https://img.shields.io/badge/version-4.22-ff2d78?style=for-the-badge)
+![version](https://img.shields.io/badge/version-4.23-ff2d78?style=for-the-badge)
 ![host](https://img.shields.io/badge/Hosted_by-GitHub_Pages-black?style=for-the-badge&logo=github)
 ![lang](https://img.shields.io/badge/Bilingüe-ES%20%7C%20EN-b347ff?style=for-the-badge)
 ![worker](https://img.shields.io/badge/Backend-Cloudflare_Worker_v5.0-orange?style=for-the-badge&logo=cloudflare)
@@ -100,7 +100,7 @@ Un **único archivo HTML autocontenido** (`index.html`). Sin servidor, sin base 
 | Google Fonts CDN | Press Start 2P · Share Tech Mono · Rajdhani |
 | Imágenes base64 | Screenshots de juegos embebidos en JS |
 | Imágenes CDN (GameJolt) | Thumbnails y avatares por URL |
-| Cloudflare Worker v4.0 | Backend del formulario |
+| Cloudflare Worker v5.0 | Backend del formulario |
 
 **Peso:** ~540 KB · **Versión constante:** `const VERSION = 'v4.21'`
 
@@ -202,7 +202,7 @@ Diseño con borde amarillo tenue, ícono 🔐 y franja superior degradada. Discl
 - **Discord:** campo `🔐 ***INFORMACIÓN SENSIBLE***` + `|| contenido ||` (blur hasta click)
 - **Email:** sección con fondo amarillo etiquetada "Información sensible"
 
-### Mensajes Discord (Worker v4.0)
+### Mensajes Discord (Worker v5.0)
 
 Formato texto puro — sin embed. Estructura real recibida en Discord:
 
@@ -363,6 +363,17 @@ index.html
 ---
 
 ## 📋 Historial de Versiones
+
+### v4.23 — Fix cursor + Worker (21 mar 2026)
+
+**🐛 Bug fix crítico — Cursor:**
+- IIFE del cursor tenía doble cierre `})();)();` — resultado de un parche aplicado sobre otro ya existente
+- Todo el JS desde ese punto fallaba silenciosamente → cursor nunca se inicializaba
+- Corregido a `})();` único
+
+**🔧 Worker:**
+- `WORKER_URL` sin trailing slash (evita redirect 301)
+- Actualizado a `worker-unified.js v5.0` — imágenes inline en email, chunks 32KB, MIME type detectado una vez
 
 ### v4.22 — Crosshair neón + switch de cursor (21 mar 2026)
 
