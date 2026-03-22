@@ -1577,7 +1577,28 @@ body.crt-on *, body.crt-on *::before, body.crt-on *::after { cursor: auto !impor
         <input type="hidden" id="f_source" name="source" value="rab">
         <div class="form-group"><label class="form-label" data-i18n="form_name">// NOMBRE</label><input class="form-input" id="f_name" name="name" type="text" data-i18n-ph="form_ph_name" placeholder="Tu nombre..."></div>
         <div class="form-group"><label class="form-label" data-i18n="form_email">// CORREO</label><input class="form-input" id="f_email" name="email" type="email" data-i18n-ph="form_ph_email" placeholder="tu@correo.com"></div>
-        <div class="form-group"><label class="form-label" data-i18n="form_social">// RED SOCIAL / NICK</label><input class="form-input" id="f_social" name="social" type="text" data-i18n-ph="form_ph_social" placeholder="@usuario · Discord · Twitter..."></div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="form_social">// NICK / USUARIO <span style="color:var(--muted);font-family:var(--fm);font-size:9px;">(opcional)</span></label>
+          <input class="form-input" id="f_social" name="social" type="text"
+            data-i18n-ph="form_ph_social" placeholder="@tuusuario"
+            oninput="updateSocialPlatformVisibility()">
+        </div>
+        <div class="form-group" id="f_platform_row" style="display:none;">
+          <label class="form-label" data-i18n="form_platform">// ¿EN QUÉ RED? <span style="color:#ff2d78">*</span></label>
+          <select class="form-select" id="f_platform" name="socialPlatform">
+            <option value="" data-i18n="form_platform_opt0">Selecciona la red...</option>
+            <option value="discord">💬 Discord</option>
+            <option value="twitter">🐦 Twitter / X</option>
+            <option value="instagram">📸 Instagram</option>
+            <option value="gamejolt">🎮 GameJolt</option>
+            <option value="itchio">🕹️ itch.io</option>
+            <option value="bluesky">🦋 Bluesky</option>
+            <option value="facebook">📘 Facebook</option>
+            <option value="youtube">▶️ YouTube</option>
+            <option value="tiktok">🎵 TikTok</option>
+            <option value="otro">🌐 Otro / Other</option>
+          </select>
+        </div>
         <div class="form-group"><label class="form-label" data-i18n="form_type">// TIPO DE CONSULTA</label>
           <select class="form-select" id="f_type" name="reason">
             <option value="" data-i18n="form_opt0">Seleccionar...</option>
@@ -1902,7 +1923,7 @@ const T = {
     faq3_q:'¿Ofrecen desarrollo por encargo?',faq3_a:'Sí. Contacta al correo de prensa para detalles y tarifas.',
     faq4_q:'¿Cómo reporto un bug?',faq4_a:'Usa el formulario con "Soporte técnico" o repórtalo en GameJolt.',
     form_name:'// NOMBRE',form_email:'// CORREO',form_type:'// TIPO DE CONSULTA',form_msg:'// MENSAJE',
-    form_social:'// RED SOCIAL / NICK',form_ph_social:'@usuario · Discord · Twitter...',form_attach:'// ADJUNTOS (opcional)',
+    form_social:'// NICK / USUARIO',form_ph_social:'@tuusuario',form_platform:'// ¿EN QUÉ RED?',form_platform_opt0:'Selecciona la red...',form_attach:'// ADJUNTOS (opcional)',
     form_ph_name:'Tu nombre...',form_ph_email:'tu@correo.com',form_ph_msg:'Escribe tu mensaje...',
     form_opt0:'Seleccionar...',form_opt1:'Consulta general',form_opt2:'Prensa / Media',
     form_opt3:'Colaboración',form_opt4:'Soporte técnico / Bug report',form_opt5:'Contratar servicios de desarrollo',
@@ -2028,7 +2049,7 @@ const T = {
     faq3_q:'Do you offer development services for hire?',faq3_a:'Yes. Contact us at the press email for details and rates.',
     faq4_q:'How do I report a bug?',faq4_a:"Use the form with 'Technical support' or report it on GameJolt.",
     form_name:'// NAME',form_email:'// EMAIL',form_type:'// INQUIRY TYPE',form_msg:'// MESSAGE',
-    form_social:'// SOCIAL MEDIA / NICK',form_ph_social:'@user · Discord · Twitter...',form_attach:'// ATTACHMENTS (optional)',
+    form_social:'// NICK / USERNAME',form_ph_social:'@youruser',form_platform:'// WHICH PLATFORM?',form_platform_opt0:'Select the platform...',form_attach:'// ATTACHMENTS (optional)',
     form_ph_name:'Your name...',form_ph_email:'you@email.com',form_ph_msg:'Write your message here...',
     form_opt0:'Select...',form_opt1:'General inquiry',form_opt2:'Press / Media',
     form_opt3:'Collaboration',form_opt4:'Technical support / Bug report',form_opt5:'Hire development services',
@@ -2248,18 +2269,37 @@ function closeLegal() { document.getElementById('legalModal').style.display='non
 document.getElementById('legalModal').addEventListener('click',function(e){if(e.target===this)closeLegal();});
 
 // ── CONTACT FORM ──
+function updateSocialPlatformVisibility() {
+  const nick = document.getElementById('f_social').value.trim();
+  const row  = document.getElementById('f_platform_row');
+  if(nick !== '') {
+    row.style.display = 'block';
+  } else {
+    row.style.display = 'none';
+    document.getElementById('f_platform').value = '';
+  }
+}
 const WORKER_URL = 'https://xata-portfolio-bot.addictivegamer.workers.dev/';
 async function submitForm() {
   const name   = document.getElementById('f_name').value.trim();
   const email  = document.getElementById('f_email').value.trim();
-  const social = document.getElementById('f_social').value.trim();
-  const type   = document.getElementById('f_type').value;
-  const msg    = document.getElementById('f_msg').value.trim();
-  const status = document.getElementById('formStatus');
-  const btn    = document.getElementById('submitBtn');
+  const social    = document.getElementById('f_social').value.trim();
+  const platform  = document.getElementById('f_platform').value;
+  const type      = document.getElementById('f_type').value;
+  const msg       = document.getElementById('f_msg').value.trim();
+  const status    = document.getElementById('formStatus');
+  const btn       = document.getElementById('submitBtn');
   if(!name||!email||!msg) {
     status.style.display='block'; status.className='form-status err';
     status.textContent='[ '+(lang==='es'?'Por favor completa todos los campos':'Please fill all required fields')+' ]';
+    return;
+  }
+  // Validar que si pusieron nick, hayan seleccionado plataforma
+  if(social !== '' && platform === '') {
+    document.getElementById('f_platform_row').style.display = 'block';
+    document.getElementById('f_platform').focus();
+    status.style.display='block'; status.className='form-status err';
+    status.textContent='[ '+(lang==='es'?'Selecciona la red social de tu nick':'Please select the platform for your nick')+' ]';
     return;
   }
   try {
@@ -2268,12 +2308,13 @@ async function submitForm() {
     btn.disabled=true; btn.style.opacity='0.6';
 
     const fd = new FormData();
-    fd.append('source',  'rab');
-    fd.append('name',    name);
-    fd.append('email',   email);
-    fd.append('social',  social);
-    fd.append('reason',  type);
-    fd.append('message', msg);
+    fd.append('source',         'rab');
+    fd.append('name',           name);
+    fd.append('email',          email);
+    fd.append('social',         social);
+    fd.append('socialPlatform', platform);
+    fd.append('reason',         type);
+    fd.append('message',        msg);
     const files = document.getElementById('f_attach').files;
     for(const f of files) fd.append('attachment', f);
 
@@ -2285,6 +2326,8 @@ async function submitForm() {
       document.getElementById('f_name').value='';
       document.getElementById('f_email').value='';
       document.getElementById('f_social').value='';
+      document.getElementById('f_platform').value='';
+      document.getElementById('f_platform_row').style.display='none';
       document.getElementById('f_type').value='';
       document.getElementById('f_msg').value='';
       document.getElementById('f_attach').value='';
