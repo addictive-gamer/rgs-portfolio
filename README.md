@@ -1,13 +1,13 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del sitio:** `v4.16`
+> **Versión del sitio:** `v4.17`
 > **Última actualización:** 21 de marzo de 2026
 > **Mantenido por:** RabGamesStudio™ — Xata Jr. (Admin Web)
 > **Contacto oficial:** rabbitgames0103@gmail.com
 > **Repositorio:** [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio)
 > **Portafolio en vivo:** [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/)
 
-![version](https://img.shields.io/badge/version-4.16-ff2d78?style=for-the-badge)
+![version](https://img.shields.io/badge/version-4.17-ff2d78?style=for-the-badge)
 ![host](https://img.shields.io/badge/Hosted_by-GitHub_Pages-black?style=for-the-badge&logo=github)
 ![lang](https://img.shields.io/badge/Bilingüe-ES%20%7C%20EN-b347ff?style=for-the-badge)
 ![worker](https://img.shields.io/badge/Backend-Cloudflare_Worker-orange?style=for-the-badge&logo=cloudflare)
@@ -246,11 +246,15 @@ Ver sección dedicada más abajo.
 Usuario llena formulario
        ↓
 FormData enviado a Cloudflare Worker (POST)
-  con campo hidden source="rab"
+  con campo source="rab" (fd.append explícito en JS)
+       ↓
+Worker identifica fuente → config RabGamesStudio
        ↓
 Worker procesa y envía en paralelo:
   ├── 📧 Email HTML estilizado vía Resend → 4 destinatarios
-  └── 💬 Discord DM con Embed enriquecido → IDs configurados
+  │     (adjuntos incluidos como attachments en Resend)
+  └── 💬 Discord DM con Embed Discohook → IDs configurados
+        (adjuntos como embeds separados con imagen inline + spoiler)
 ```
 
 ### Campos del formulario
@@ -297,14 +301,18 @@ Worker procesa y envía en paralelo:
 | `RAB_DISCORD_ID_2` | (vacío por ahora) |
 | `RAB_DISCORD_ID_3` | (vacío por ahora) |
 
-### Embeds de Discord
+### Embeds de Discord (estilo Discohook)
 
-- **Color:** `#e91e8c` (rosa RabGamesStudio)
-- **Título:** `🎮 Nuevo mensaje — RabGamesStudio`
-- **Campos inline:** Nombre · Correo · Red social (con emoji de plataforma)
-- **Campos block:** Motivo · Mensaje
-- **Footer:** Timestamp en hora México (America/Mexico_City)
-- Las imágenes adjuntas se envían como embeds separados con spoiler (`||🖼️ filename||`)
+- **`content`:** `🎮 Nuevo mensaje en RabGamesStudio` (texto sobre el embed)
+- **`author`:** `RabGamesStudio · Formulario de contacto` + favicon como icono izquierdo
+- **`title`:** `👤 [Nombre del remitente]`
+- **`thumbnail`:** Favicon de RabGamesStudio en esquina superior derecha
+  - URL: `https://raw.githubusercontent.com/addictive-gamer/rgs-portfolio/refs/heads/main/favicon.png`
+- **`color`:** `0xe91e8c` — rosa RabGamesStudio
+- **Campos inline (fila 1):** Correo · Red social con emoji de plataforma · spacer invisible
+- **Campos block:** Motivo (blockquote) · Mensaje
+- **`footer`:** `RabGamesStudio · timestamp horario México` + favicon como icono
+- **Adjuntos:** Cada imagen va en un embed separado con imagen inline (estilo Discohook) + efecto spoiler (blur hasta click)
 
 ---
 
@@ -379,7 +387,7 @@ index.html
 
 ```javascript
 // ── VERSION ──
-const VERSION = 'v4.16'; // ← cambiar solo aquí para actualizar el footer
+const VERSION = 'v4.17'; // ← cambiar solo aquí para actualizar el footer
 // Se inyecta automáticamente en document.getElementById('footer-version')
 ```
 
@@ -651,6 +659,24 @@ Selecciona **"Soporte técnico / Bug report"** en el formulario, o repórtalo en
 ---
 
 ## 📦 Historial de Versiones
+
+### v4.17 — Worker v2.0: Discohook + fuente correcta + adjuntos verificados (21 mar 2026)
+
+**➕ Añadido / Mejorado**
+- Embeds de Discord rediseñados al estilo **Discohook**: `author`, `title`, `thumbnail`, `footer` con icono
+- Thumbnail del embed ahora usa el favicon correcto de cada sitio:
+  - RabGamesStudio → `https://raw.githubusercontent.com/addictive-gamer/rgs-portfolio/refs/heads/main/favicon.png`
+- Campo `source="rab"` verificado — el Worker identifica correctamente el origen
+- Adjuntos en Discord: cada imagen en embed separado con `image.url = attachment://SPOILER_nombre` (render inline + spoiler blur)
+- Adjuntos en email: incluidos como `body.attachments` en Resend
+- Spacers invisibles (`​`) para alinear correctamente la cuadrícula de 3 campos inline
+- Campos de Discord reorganizados: Correo · Red social · spacer (fila inline) + Motivo · Mensaje (full width)
+
+**🐛 Bug fix**
+- Popup de idioma: `pointer-events: all !important` + `z-index: 99999` — ya no bloquea clicks en botones ES/EN
+- `selectLang()` ahora también pone `visibility: hidden` y `pointerEvents: none` para evitar interferencias
+
+---
 
 ### v4.16 — Nick + Plataforma en formulario & Discord Embeds (21 mar 2026)
 
