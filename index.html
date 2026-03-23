@@ -2337,6 +2337,7 @@ document.addEventListener('mousemove', e => { blob.style.left=e.clientX+'px'; bl
 
 // ── LANGUAGE SYSTEM ──
 function selectLang(v) {
+  document.getElementById('lang-popup').classList.add('hidden');
   const popup = document.getElementById('lang-popup');
   popup.style.display = 'none';
   popup.style.pointerEvents = 'none';
@@ -2430,12 +2431,11 @@ function setPopupCursor(open) {
     document.body.classList.add('popup-open');
     if (dot && !crtOn && cursorEnabled) dot.style.opacity = '0';
   } else {
-    const anyOpen =
-      document.getElementById('lang-popup').style.visibility !== 'hidden' &&
-      document.getElementById('lang-popup').style.display !== 'none' ||
-      document.getElementById('exit-popup').classList.contains('show') ||
-      document.getElementById('gameModal').style.display === 'flex' ||
-      document.getElementById('legalModal').style.display === 'flex';
+const anyOpen =
+  !document.getElementById('lang-popup').classList.contains('hidden') ||
+  document.getElementById('exit-popup').classList.contains('show') ||
+  document.getElementById('gameModal').style.display === 'flex' ||
+  document.getElementById('legalModal').style.display === 'flex';
     if (!anyOpen) {
       document.body.classList.remove('popup-open');
       if (dot && !crtOn && cursorEnabled) dot.style.opacity = '1';
