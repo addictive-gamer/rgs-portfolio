@@ -1,16 +1,16 @@
 # 🐰 RabGamesStudio™ — Official Website README
 
-> **Versión del sitio:** `v4.23`
-> **Última actualización:** 21 de marzo de 2026
-> **Mantenido por:** RabGamesStudio™ — Xata Jr. (Admin Web)
-> **Contacto oficial:** rabbitgames0103@gmail.com
-> **Repositorio:** [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio)
+> **Versión del sitio:** `v4.25`  
+> **Última actualización:** 24 de marzo de 2026  
+> **Mantenido por:** RabGamesStudio™ — Xata Jr. (Admin Web)  
+> **Contacto oficial:** rabbitgames0103@gmail.com  
+> **Repositorio:** [github.com/addictive-gamer/rgs-portfolio](https://github.com/addictive-gamer/rgs-portfolio)  
 > **Portafolio en vivo:** [addictive-gamer.github.io/rgs-portfolio/](https://addictive-gamer.github.io/rgs-portfolio/)
 
-![version](https://img.shields.io/badge/version-4.23-ff2d78?style=for-the-badge)
+![version](https://img.shields.io/badge/version-4.25-ff2d78?style=for-the-badge)
 ![host](https://img.shields.io/badge/Hosted_by-GitHub_Pages-black?style=for-the-badge&logo=github)
 ![lang](https://img.shields.io/badge/Bilingüe-ES%20%7C%20EN-b347ff?style=for-the-badge)
-![worker](https://img.shields.io/badge/Backend-Cloudflare_Worker_v5.0-orange?style=for-the-badge&logo=cloudflare)
+![worker](https://img.shields.io/badge/Backend-Cloudflare_Worker_v5.2-orange?style=for-the-badge&logo=cloudflare)
 ![mobile](https://img.shields.io/badge/Mobile-Optimizado-39ff14?style=for-the-badge)
 ![crt](https://img.shields.io/badge/Feature-CRT_Mode-00d4ff?style=for-the-badge)
 
@@ -26,11 +26,12 @@
 6. [Features completas](#features-completas)
 7. [Formulario de Contacto → Cloudflare Worker](#formulario-de-contacto--cloudflare-worker)
 8. [Arquitectura técnica](#arquitectura-técnica-para-ias-y-desarrolladores)
-9. [Guía para el dueño del estudio](#guía-para-el-dueño-del-estudio)
-10. [Assets y recursos integrados](#assets-y-recursos-integrados)
-11. [Historial de versiones](#historial-de-versiones)
-12. [Cómo publicar](#cómo-publicar-en-github-pages--netlify)
-13. [Créditos](#créditos-y-herramientas)
+9. [Correcciones pendientes conocidas](#-correcciones-pendientes-conocidas)
+10. [Guía para el dueño del estudio](#guía-para-el-dueño-del-estudio)
+11. [Assets y recursos integrados](#assets-y-recursos-integrados)
+12. [Historial de versiones](#historial-de-versiones)
+13. [Cómo publicar](#cómo-publicar-en-github-pages--netlify)
+14. [Créditos](#créditos-y-herramientas)
 
 ---
 
@@ -85,7 +86,7 @@
 | YouTube | https://www.youtube.com/@RabbitGamesOficial |
 | Discord | Próximamente |
 
-**Estudios Aliados:** Rewite Pictures · ZAYgt · Nightmare Labs · Reptile Games · JBS_GAMES™
+**Estudios Aliados:** Rewite Pictures · ZAYgt · Nightmare Labs · Reptile Games · JBS_GAMES™  
 → Todos en https://gamejolt.com/@[nombre]
 
 ---
@@ -98,11 +99,11 @@ Un **único archivo HTML autocontenido** (`index.html`). Sin servidor, sin base 
 |---|---|
 | HTML5 + CSS3 + JS vanilla | Todo el sitio |
 | Google Fonts CDN | Press Start 2P · Share Tech Mono · Rajdhani |
-| Imágenes base64 | Screenshots de juegos embebidos en JS |
+| Imágenes base64 | Screenshots + portadas JBS (embebidos en HTML) |
 | Imágenes CDN (GameJolt) | Thumbnails y avatares por URL |
-| Cloudflare Worker v5.0 | Backend del formulario |
+| Cloudflare Worker v5.2 | Backend del formulario |
 
-**Peso:** ~540 KB · **Versión constante:** `const VERSION = 'v4.21'`
+**Peso:** ~790 KB · **Versión en código:** `const VERSION = 'v4.25'`
 
 ---
 
@@ -118,55 +119,76 @@ Un **único archivo HTML autocontenido** (`index.html`). Sin servidor, sin base 
 - Al activar CRT: cursor personalizado hace fade-out — al desactivar: fade-in
 
 ### 🖱️ Cursor Personalizado — Crosshair Neón
-- **Crosshair rosa neón** con punto central y 4 líneas, todo con `z-index: 999999`
-- Hover: escala 1.5x y cambia a morado · Click: comprime a 0.65x
-- **Switch `✛ ON/OFF`** en el header para activar/desactivar independientemente del CRT
-- Se oculta completamente en touch (`@media (hover: none)` + detección JS + clase `body.cursor-off`)
-- Se oculta mientras hay cualquier popup abierto (`body.popup-open`)
-- Se oculta con CRT activado
+- Crosshair rosa neón con punto central y 4 líneas, `z-index: 999999`
+- Hover: escala 1.5x morado · Click: comprime a 0.65x
+- Switch `✛ ON/OFF` en el header independiente del CRT
+- Se oculta en touch, durante popups y con CRT activado
 
 ### 📱 Responsive / Mobile
-- Breakpoints: `768px` (hamburger, grids 1col) · `480px` (tipografías reducidas) · `430px` (Android moderno)
-- `@media (hover: none)`: cursor desactivado, `cursor: auto` restaurado
-- `font-size: 16px` en todos los inputs/textareas en ≤430px — **previene autozoom en iOS**
+- Breakpoints: `768px` (hamburger, grids 1col) · `480px` · `430px`
+- `font-size: 16px` en inputs/textareas en ≤430px — previene autozoom iOS
 - Modales con `overflow-y: auto` y `max-height` en ≤768px
-- Botones del exit popup más grandes en ≤480px
 
 ### 🎞️ Slider del Hero
 - 3 slides · auto-avance 4.8s · flechas + dots
+- Slide 1: Talk to the Hand (GameJolt CDN)
+- Slide 2: His Destiny (GameJolt CDN)
+- Slide 3: imagen real de JBS_GAMES™ (base64 embebida, badge verde)
 
-### 🎮 Modal de Juegos
-- Galería 3 imágenes · descripción bilingüe · género · estado · link GameJolt
-- `overflow-y: auto` en móvil
+### 🎮 Catálogo de Juegos
+- The Run y VaultPlanet con thumbnails reales (base64 embebidas — reemplazan SVG placeholder)
+- Modal con galería de 3 imágenes, descripción bilingüe, género, estado, link GameJolt
+
+### 🖼️ Preview de imágenes adjuntas
+- Al seleccionar archivos: cuadrícula de miniaturas 72×72px con botón ✕
+- Contador de archivos · se limpia al enviar con éxito
+
+### 📁 Botón de adjuntos estilizado *(nuevo v4.25)*
+- Input nativo reemplazado por botón con estética gaming (overlay invisible + botón visible)
+- Borde dashed → rosa neon al hover · morado glow al focus
+- Ícono de subida que sube al hover · hint de formatos aceptados
+- Lista de pills bilingüe bajo el botón con nombre de cada archivo seleccionado
+- Completamente accesible: input nativo superpuesto (opacity:0, z-index:2)
+- Funciones: `updatePreview()` (miniaturas) + `updateFilePills()` (lista de nombres)
 
 ### ⚖️ Políticas Legales
 - 5 políticas en modales: Privacidad · T&C · Accesibilidad · Envío · Reembolso
 
 ### 🚪 Exit Popup
-- Intercepta todos los links `http/https` externos
-- Bilingüe · oculta cursor personalizado al abrirse
-
-### 📬 Formulario con contador de caracteres
-Ver sección dedicada más abajo.
+- Intercepta todos los links `http/https` externos · bilingüe
 
 ---
 
 ## 📬 Formulario de Contacto → Cloudflare Worker
 
-### Flujo
+### Flujo v5.2
 
 ```
 Usuario llena formulario
     ↓
-FormData → Cloudflare Worker (POST)  [source="rab"]
+FormData → POST https://xata-portfolio-bot.addictivegamer.workers.dev
     ↓
-Worker envía en paralelo:
-  ├── 📧 Email HTML (Resend) → 4 destinatarios
-  │     adjuntos + info sensible incluidos
-  └── 💬 Discord DM (bot) → IDs configurados
-        mensaje texto markdown con # / ## / > / ` / || ||
-        adjuntos como SPOILER_ (blur hasta click)
+Worker v5.2:
+  ├── 1. Discord (CRÍTICO — si falla aquí se devuelve error)
+  │     ┌── RAB_WEBHOOK_URL configurado?
+  │     │     SÍ → sendViaWebhook (embed + adjuntos, ?wait=true)
+  │     │     NO → sendViaBotDM (embed + adjuntos por DM a cada ID)
+  │     └── adjuntos renombrados a SPOILER_archivo.ext
+  │
+  ├── 2. D1 database (NON-FATAL)
+  │     Si env.DB no está vinculado o falla: se loguea el error
+  │     pero la respuesta sigue siendo { success: true }
+  │     → el formulario nunca muestra error falso por D1
+  │
+  └── 3. Email HTML (non-fatal, background, no bloquea respuesta)
+        Tabla de campos · blockquote de mensaje
+        Sección amarilla para info sensible
+        Incluye red social y plataforma
 ```
+
+### ¿Por qué antes mostraba error si el mensaje llegaba?
+
+El Worker anterior lanzaba excepción si D1 fallaba → `status: 500` → el frontend veía `success: false` → mostraba "algo salió mal". **Fix v5.2:** D1 es non-fatal. Solo `status: 500` si Discord falla.
 
 ### Campos del formulario
 
@@ -177,176 +199,105 @@ Worker envía en paralelo:
 | `#f_social` | `social` | text | **60** | Opcional |
 | `#f_platform` | `socialPlatform` | select | — | Requerido si social ≠ "" |
 | `#f_type` | `reason` | select | — | Tipo de consulta |
-| `#f_msg` | `message` | textarea | **1000** | Requerido · overhead Discord |
-| `#f_attach` | `attachment` | file | image/* · múltiples | Opcional |
+| `#f_msg` | `message` | textarea | **1000** | Requerido |
+| `#f_attach` | `attachment` | file | image/* · múltiples | Opcional · botón estilizado + preview |
 | `#f_sensitive` | `sensitiveInfo` | textarea | **500** | Opcional · spoiler Discord |
 | *(hidden)* | `source` | — | — | `"rab"` hardcoded en JS |
 
-> **¿Por qué 1000 y no 2000?** El mensaje de Discord tiene un límite de 2000 chars totales. La estructura markdown del Worker (cabecera `#`, separadores `##`, blockquotes `>`, footer `-#`, bloque de info sensible) consume entre 818 y 1462 chars según los campos opcionales presentes. El Worker trunca dinámicamente al espacio real disponible; el formulario limita a 1000 como primera defensa conservadora.
-
-### Indicador de caracteres
-
-| Estado | Color | Condición | Animación |
-|---|---|---|---|
-| Normal | Gris | > 50 restantes | — |
-| Advertencia | 🟡 Amarillo | ≤ 50 | `counter-pulse` |
-| Peligro | 🟠 Naranja | ≤ 20 | `counter-pulse` |
-| Límite | 🔴 Rosa + negrita | ≤ 0 | `counter-shake` + borde rojo |
-
-`maxlength` en HTML (1ª defensa) + validación JS en `submitForm()` (2ª defensa). Reset automático al enviar con éxito.
-
-### Campo de información sensible
-
-Diseño con borde amarillo tenue, ícono 🔐 y franja superior degradada. Disclaimer de privacidad bilingüe encima del textarea.
-
-- **Discord:** campo `🔐 ***INFORMACIÓN SENSIBLE***` + `|| contenido ||` (blur hasta click)
-- **Email:** sección con fondo amarillo etiquetada "Información sensible"
-
-### Mensajes Discord (Worker v5.0)
-
-Formato texto puro — sin embed. Estructura real recibida en Discord:
+### Discord Embeds (Worker v5.2)
 
 ```
-# 🎮 NUEVO MENSAJE — RABGAMESSTUDIO
-
-## ── 👤 ──────────────────────────
-> 👤 ***Nombre del remitente***
-> 📧 **Correo:** `correo@ejemplo.com`
-> 🐦 Twitter/X: `@usuario`        ← solo si se proporcionó
-> 🎯 **Motivo:** `Colaboración`    ← solo si se proporcionó
-> 📎 **Adjuntos:** 2 archivos ↓   ← solo si hay adjuntos
-
-## ── 💬 ──────────────────────────
-> 💬 **Mensaje:**
-> Línea 1 del mensaje
-> Línea 2...
-
-## ── 🔐 ──────────────────────────   ← solo si hay info sensible
-> 🔐 ***INFORMACIÓN SENSIBLE***
-> -# Maneja con discreción — solo visible al hacer click
-|| contenido oculto ||
-
-## ── 🕒 ──────────────────────────
--# 🎮 RabGamesStudio · <t:UNIX:f> · <t:UNIX:R>
-```
-
-Adjuntos (mensaje separado por cada imagen):
-```
--# 📎 Adjunto 1 de 2: `foto.png` — click para revelar
-[imagen con blur SPOILER_]
+Embed:
+  Título:      🎮 Nuevo mensaje — RabGamesStudio
+  Color:       0xff2d78  (rosa RGS)
+  Thumbnail:   favicon.png del repo GitHub
+  Descripción: [nombre] se ha puesto en contacto.
+  Campos:
+    📧 Correo          [email]         inline
+    🎯 Motivo          [motivo]        inline
+    🔗 Red social      plat · @user   inline  (solo si aplica)
+    💬 Mensaje         [texto max 1024]
+    🔒 Info sensible   ||spoiler||     (solo si aplica)
+  Footer:      RabGamesStudio · Portfolio Inbox
+  Timestamp:   ISO 8601
+  Adjuntos:    SPOILER_archivo.ext (blur hasta click)
 ```
 
 ### Configuración del Worker (Cloudflare Secrets)
 
-| Secret | Valor |
+| Secret | Descripción |
 |---|---|
-| `DISCORD_BOT_TOKEN` | Token del bot de Discord |
-| `RESEND_API_KEY_RAB` | API key de Resend para RabGamesStudio |
-| `RAB_DISCORD_ID_1` | `920017830605361232` (Addictive Gamer) |
-| `RAB_DISCORD_ID_2` | vacío o `blank` |
-| `RAB_DISCORD_ID_3` | vacío o `blank` |
+| `DISCORD_BOT_TOKEN` | Token del bot — requerido para modo DM bot |
+| `RESEND_API_KEY_RAB` | API key de Resend |
+| `RAB_DISCORD_IDS` | IDs de Discord separados por coma |
+| `RAB_EMAIL` | Email destino (default: `rabbitgames0103@gmail.com`) |
+| `RAB_WEBHOOK_URL` | *(opcional)* URL de Webhook de Discord — prioridad sobre DM bot |
+
+> **Webhook vs Bot DM:** El Webhook envía a un canal fijo (no necesita bot activo en el servidor). El Bot DM envía mensajes privados a cada usuario en `RAB_DISCORD_IDS`. Si configuras ambos, el Webhook tiene prioridad.
 
 ---
 
-## 🤖 Arquitectura Técnica para IAs y Desarrolladores
-
-### Estructura del archivo
+## 🤖 Arquitectura Técnica (para IAs y Desarrolladores)
 
 ```
-index.html
+index.html  — único archivo autocontenido
 ├── <head>
-│   ├── Meta SEO · OG completo · Twitter Card · theme-color #ff2d78
-│   ├── Google Fonts CDN
-│   └── <style>  ~950 líneas
-│       ├── :root — design tokens
-│       ├── CRT effect
-│       ├── Cursor personalizado
-│       ├── @media (hover: none) — touch devices
-│       ├── .char-counter · .field-counter-wrap · .field-over
-│       ├── .sensitive-field · .sensitive-disclaimer
-│       ├── Mobile fixes: 480px · 768px · hover:none
-│       ├── Header · Hero · Slider · Secciones · Modales
+│   ├── Meta SEO · OG · Twitter Card · theme-color #ff2d78
+│   ├── Google Fonts CDN (Press Start 2P · Share Tech Mono · Rajdhani)
+│   └── <style>  ~970 líneas
+│       ├── :root, CRT, pixel-bg, cursor crosshair
+│       ├── .file-input-wrap · .file-input-btn · .file-pill  ← NEW v4.25
+│       ├── #f_preview · .prev-wrap · .prev-remove
+│       ├── Hero slider · Games · About · Team · Allied · News
+│       ├── Contact form · Sensitive field · Char counter
 │       └── Responsive: 768px · 480px · 430px
 ├── <body>
-│   ├── .pixel-bg · #mouse-blob · #cursor-dot · #notif
+│   ├── #mouse-blob   ← FIXED v4.25
+│   ├── #cursor-dot (crosshair neón)
 │   ├── #exit-popup · #lang-popup
-│   ├── <header> — nav fijo · CRT btn · lang toggle · hamburger
+│   ├── <header>
 │   ├── <main>
-│   │   ├── #home · #about-home · #support · #games-full
-│   │   ├── #about-full · #team · #allied-studios · #news-full
-│   │   ├── #social-embeds · #contact
-│   ├── <footer>
-│   ├── #legalModal · #gameModal
-│   └── <script>  ~700 líneas
-│       ├── const VERSION = 'v4.21'
-│       ├── const IMG = {...}          ← base64 de imágenes
-│       ├── const T = { es, en }       ← 180+ cadenas bilingües
-│       ├── const games = { ttth, hd }
-│       ├── const LEGAL = {...}        ← 5 políticas × 2 idiomas
-│       └── funciones (ver tabla)
+│   │   ├── #home (slider, slide3 = JBS imagen real)
+│   │   ├── #games-full (The Run + VP imágenes reales)
+│   │   ├── #contact (botón adjuntos estilizado + preview)
+│   │   └── ...resto de secciones
+│   └── <script>
+│       ├── let lang = 'es';   ← primera línea — fix TDZ
+│       ├── const VERSION = 'v4.25'
+│       ├── updateCharCounter · updatePreview · updateFilePills
+│       ├── submitForm() → fetch WORKER_URL
+│       └── toggleCRT · toggleCustomCursor · interceptLinks · etc.
 ```
 
-### Variables CSS Globales (`:root`)
+---
 
-```css
---bg-deep: #0a0a0f;  --bg-mid: #0f0f1a;  --bg-card: #13131f;  --bg-hover: #1a1a2e;
---border: #1e1e35;
---pink: #ff2d78;     --pink-dim: #c4215a;   --pink-glow: rgba(255,45,120,0.35);
---blue: #00d4ff;     --blue-dim: #0099bb;   --blue-glow: rgba(0,212,255,0.30);
---purple: #b347ff;   --purple-dim: #8230cc; --purple-glow: rgba(179,71,255,0.30);
---green: #39ff14;    --yellow: #ffe600;
---white: #e8e8f0;    --muted: #6a6a8a;      --muted2: #4a4a65;
---fp: 'Press Start 2P', monospace;
---fm: 'Share Tech Mono', monospace;
---fb: 'Rajdhani', sans-serif;
-```
+## 🐛 Correcciones Pendientes Conocidas
 
-### Funciones JavaScript
+### Worker — Adjuntos no llegan al email
 
-| Función | Descripción |
-|---|---|
-| `selectLang(v)` | Cierra popup · aplica idioma · restaura cursor |
-| `toggleLang()` | Alterna ES ↔ EN |
-| `applyLang(v)` | Aplica `[data-i18n]` y `[data-i18n-ph]` |
-| `setPopupCursor(open)` | Oculta/restaura cursor al abrir/cerrar cualquier popup |
-| `toggleCustomCursor()` | Activa/desactiva el crosshair (switch `✛ ON/OFF` en header) |
-| `updateCharCounter(el, max)` | Contador con 4 estados de color + animaciones |
-| `updateSocialPlatformVisibility()` | Muestra/oculta `#f_platform_row` |
-| `submitForm()` | Valida límites + envía FormData al Worker |
-| `goTo(id)` · `goHome()` | Scroll suave a sección |
-| `toggleCRT()` | Activa/desactiva `crt-on` |
-| `slideMove(dir)` · `goSlide(n)` | Slider del hero |
-| `toggleFAQ(el)` | Acordeón FAQ |
-| `showNotif(msg)` | Toast 3s en `#notif` |
-| `openLink(url)` | Exit popup |
-| `toggleMenu()` | Nav hamburguesa |
-| `openModal(id)` · `closeModal()` | Modal de juego |
-| `openLegal(type)` · `closeLegal()` | Modal legal |
-| `exitClose()` · `exitConfirm()` | Cerrar / confirmar exit popup |
-| `interceptLinks()` | Listeners en `<a>` externos (se re-llama al cambiar idioma) |
+**Severidad:** Baja — los adjuntos llegan a Discord correctamente como SPOILER_. El email solo contiene los datos de texto. Mejora futura.
 
-### Responsive Breakpoints
+---
 
-| Breakpoint | Descripción |
-|---|---|
-| `768px` | Nav hamburguesa · grids 1 col · footer centrado · modales con scroll |
-| `480px` | Tipografías reducidas · exit popup más grande · mobile fixes nuevos elementos |
-| `430px` | Android moderno ~393px CSS · `font-size: 16px` en inputs (anti-zoom iOS) |
-| `hover: none` | Cursor personalizado desactivado completamente (touch devices) |
+### Página — `updateCharCounter` umbral duplicado *(cosmético)*
+
+**Severidad:** Muy baja. `≤ 10` y `≤ 20` ambos asignan `danger`. Fix: eliminar el bloque `≤ 10`.
 
 ---
 
 ## 🗂️ Guía para el Dueño del Estudio
 
-**Cambiar versión:** solo `const VERSION = 'vX.XX'` al inicio del JS.
+**Cambiar versión:** `const VERSION = 'vX.XX'` al inicio del JS.
+
+**Usar Webhook de Discord:** Cloudflare → Settings → Variables → añadir `RAB_WEBHOOK_URL` con la URL del webhook del canal.
 
 **Añadir juego:** entrada en `const games`, card en `#games-full`, traducciones en `T.es`/`T.en`.
 
-**Cambiar destinatarios del email:** `worker-unified.js` → `buildSources(env)` → `rab.to[]`.
+**Añadir imagen real a un juego:** reemplazar `<div class="gfc-thumb-svg">` por `<div class="gfc-thumb"><img src="..."></div>`.
 
-**Añadir ID de Discord:** Cloudflare Secrets → `RAB_DISCORD_ID_2` o `RAB_DISCORD_ID_3`.
+**Cambiar destinatarios del email:** `xata-portfolio-bot.js` → `buildSources(env)` → `rab.to[]`.
 
-**Añadir aliado:** card en `#allied-studios` + avatar en GameJolt CDN.
+**Añadir ID de Discord:** Cloudflare Secrets → `RAB_DISCORD_IDS` (separar por coma).
 
 ---
 
@@ -354,92 +305,49 @@ index.html
 
 | Asset | Fuente |
 |---|---|
-| Avatar RabGamesStudio | GameJolt CDN (URL externa) |
-| Thumbnails TTTH / His Destiny | GameJolt CDN (URL externa) |
-| Screenshots de juegos | base64 inline en JS |
-| Favicon (tab + Discord embed) | `favicon.png` en raíz del repo |
-| Favicon en mensajes Discord | `https://raw.githubusercontent.com/addictive-gamer/rgs-portfolio/refs/heads/main/favicon.png` |
+| Avatar RabGamesStudio | GameJolt CDN |
+| Thumbnails TTTH / His Destiny | GameJolt CDN |
+| **Thumbnail The Run** | base64 embebida ← v4.24 |
+| **Thumbnail VaultPlanet** | base64 embebida ← v4.24 |
+| **Hero slide 3 (JBS_GAMES™)** | base64 embebida ← v4.24 |
+| Screenshots de juegos (modales) | base64 inline en JS |
+| Favicon | `favicon.png` en raíz del repo |
 
 ---
 
 ## 📋 Historial de Versiones
 
-### v4.23 — Fix cursor + Worker (21 mar 2026)
+### v4.25 — Bug fixes críticos + botón adjuntos + Worker v5.2 (24 mar 2026)
 
-**🐛 Bug fix crítico — Cursor:**
-- IIFE del cursor tenía doble cierre `})();)();` — resultado de un parche aplicado sobre otro ya existente
-- Todo el JS desde ese punto fallaba silenciosamente → cursor nunca se inicializaba
-- Corregido a `})();` único
-
-**🔧 Worker:**
-- `WORKER_URL` sin trailing slash (evita redirect 301)
-- Actualizado a `worker-unified.js v5.0` — imágenes inline en email, chunks 32KB, MIME type detectado una vez
-
-### v4.22 — Crosshair neón + switch de cursor (21 mar 2026)
-
-**➕ Añadido / Cambiado**
-- **Crosshair rosa neón** reemplaza el punto simple:
-  - Punto central 4px + 4 líneas de 7px usando `::before`/`::after` con `box-shadow` glow
-  - Hover: escala 1.5x + todo morado · Click: escala 0.65x
-  - CSS puro — un solo `div#cursor-dot`, sin elementos extra en el HTML
-- **Botón `✛ ON/OFF`** en el header (`#cursor-btn`) junto al CRT, mismo estilo visual
-  - Variable `cursorEnabled` · clase `body.cursor-off` restaura `cursor: auto`
-  - `setPopupCursor()` y `toggleCRT()` respetan el estado del switch
-- **Limpieza de código muerto** — eliminados `cursorRing`, `animRing()`, el segundo `mousemove` duplicado y la referencia a `#cursor-ring` (que nunca existió en el HTML de RGS)
-
----
-
-### v4.21 — Optimización móvil completa (21 mar 2026)
+**🐛 Bug fixes**
+- `#mouse-blob` faltaba en el HTML → crash en `mousemove` → div añadido
+- `getElementById('exit-cancel')` retornaba null → crash → línea removida (botón ya tenía onclick inline)
+- `lang` TDZ (`Cannot access 'lang' before initialization`) → `let lang = 'es'` movido a primera línea del script
 
 **➕ Añadido**
-- `@media (hover: none)` — cursor personalizado completamente desactivado en touch: `display: none` + `cursor: auto`
-- `font-size: 16px` en inputs/textareas en ≤430px — **elimina el autozoom de iOS** al tocar un campo
-- `.char-counter` a `10px` en ≤480px (legible en pantallas pequeñas)
-- `.sensitive-field` con padding reducido y `min-height: 80px` en ≤480px
-- Botones exit popup (`font-size: 9px`) y título (`8px`) más legibles en ≤480px
-- `.modal-inner` y `.legal-inner` con `overflow-y: auto` y `max-height` en ≤768px
-- `.field-counter-wrap { overflow: visible }` en ≤768px — el contador no se corta
+- Botón de adjuntos estilizado: borde dashed neon, glow rosa/morado, ícono animado, lista de pills con nombres de archivos
+- Funciones `updatePreview()` y `updateFilePills()` · traducciones `form_attach_btn` y `form_attach_hint`
+
+**🔧 Worker v5.2 — xata-portfolio-bot**
+- **D1 NON-FATAL:** si la base de datos falla, el Worker responde `{ success: true, dbWarning: '...' }` en vez de `status: 500` → el formulario ya no muestra error falso
+- **Discord Embeds:** ya no usa texto plano — embed rico con color, thumbnail, campos inline, spoiler de info sensible, timestamp ISO
+- **Webhook de Discord:** nuevo método opcional (`RAB_WEBHOOK_URL` / `XATA_WEBHOOK_URL`) — si está, se usa en vez del DM bot; soporta embeds + adjuntos
+- Email HTML mejorado: tabla de campos, blockquote, sección amarilla para info sensible, incluye red social y plataforma
+- Ambos métodos (webhook y DM bot) envían adjuntos como `SPOILER_archivo.ext`
 
 ---
 
+### v4.24 — Imágenes reales JBS + preview adjuntos + Worker v5.1 (24 mar 2026)
+- Thumbnails reales The Run y VaultPlanet (base64)
+- Hero slide 3: imagen JBS_GAMES™
+- Preview de adjuntos en el formulario
+- `const VERSION` corregido
+
+### v4.23 — Fix cursor IIFE + WORKER_URL (21 mar 2026)
+### v4.22 — Crosshair neón + switch cursor (21 mar 2026)
+### v4.21 — Optimización móvil completa (21 mar 2026)
 ### v4.20 — Fix duplicados JS + límite mensaje (21 mar 2026)
-
-**🐛 Bug fix crítico**
-- `let exitTarget` declarado dos veces → `SyntaxError` que abortaba todo el script → `selectLang is not defined`
-- Eliminado bloque duplicado (línea ~2544), consolidadas `exitClose()`, `exitConfirm()` e `interceptLinks()`
-
-**✏️ Cambiado**
-- Límite campo mensaje: **2000 → 1000** chars (overhead Discord)
-- Worker: truncado dinámico calculando el espacio disponible real antes de truncar
-
----
-
-### v4.19 — Contador de caracteres (21 mar 2026)
-
-- Contador `restantes / máximo` en todos los campos de texto
-- 4 estados: normal → 🟡 (≤50) → 🟠 (≤20) → 🔴 shake (≤0)
-- `maxlength` HTML + validación JS · reset al enviar
-
----
-
-### v4.18 — Campo de información sensible (21 mar 2026)
-
-- Campo `// INFORMACIÓN SENSIBLE` con diseño amarillo + 🔐
-- Discord: `||spoiler||` · Email: sección amarilla
-
----
-
-### v4.17 — Worker v2.0 · Discohook · timestamps (21 mar 2026)
-
-- Embeds Discord con favicon correcto por fuente
-- Timestamps nativos `<t:UNIX:f>` · adjuntos `SPOILER_`
-- Fix popup idioma: `pointer-events: all` + `z-index: 99999`
-
----
-
-### v4.16 → v4.0
-
-Ver historial completo en el repositorio.
+### v4.19 → v4.0 — Ver historial en el repositorio.
 
 ---
 
@@ -449,10 +357,17 @@ Ver historial completo en el repositorio.
 2. **Settings → Pages → Deploy from branch → main / root**
 3. URL: `https://addictive-gamer.github.io/rgs-portfolio/`
 
-**Conectar el Worker:**
-1. [workers.cloudflare.com](https://workers.cloudflare.com) → nuevo Worker → pegar `worker-unified.js`
-2. **Settings → Variables and Secrets** → configurar los secrets de la tabla
-3. `WORKER_URL` en `index.html` ya apunta a `https://xata-portfolio-bot.addictivegamer.workers.dev/`
+**Conectar el Worker (bot):**
+1. [workers.cloudflare.com](https://workers.cloudflare.com) → pegar `xata-portfolio-bot.js`
+2. **Settings → Variables and Secrets** → todos los secrets de la tabla
+3. `WORKER_URL` en el HTML: `https://xata-portfolio-bot.addictivegamer.workers.dev`
+
+**Conectar la database (xata-messages):**
+1. Pegar `xata-messages.js` en un Worker separado
+2. Vincular D1 database como `DB` en los bindings
+3. Acceder en `https://xata-messages.addictivegamer.workers.dev/`
+
+> ⚠️ **CRÍTICO al editar manualmente:** No borrar `</style></head><body>`. Si la página se pone negra, ese es el primer lugar donde buscar.
 
 ---
 
@@ -463,14 +378,13 @@ Ver historial completo en el repositorio.
 | Diseño y desarrollo web | **Claude** (Anthropic) |
 | Arte de juegos e identidad | RabGamesStudio™ |
 | Ilustración & Sprites | Xata Jr. (Addictive Gamer) |
+| Imágenes JBS_GAMES™ | JBS_GAMES™ |
 | Fuentes | Google Fonts (OFL) |
 | Emails | **Resend** |
-| Backend | **Cloudflare Worker v5.0** |
+| Backend | **Cloudflare Worker v5.2** |
 | Hosting | **GitHub Pages** |
 | Admin repo & web | **Xata Jr.** |
 
 ---
-
-> ⚠️ **CRÍTICO al editar manualmente:** No borrar `</style></head><body>`. Si la página se pone negra, ese es el primer lugar donde buscar.
 
 *"No seguimos tendencias — creamos las nuestras." — RabGamesStudio™ · 2026*
